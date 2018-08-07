@@ -27,8 +27,10 @@ export let formats = {
   eventTimeRangeFormat: timeRangeFormat,
   eventTimeRangeStartFormat: timeRangeStartFormat,
   eventTimeRangeEndFormat: timeRangeEndFormat,
+  currentTimeIndicatorFormat: 'HH:mm',
 
   timeGutterFormat: 't',
+  timeGutterHeaderFormat: 'ZZ',
 
   monthHeaderFormat: 'Y',
   dayHeaderFormat: 'dddd MMM dd',

@@ -1,10 +1,15 @@
 import PropTypes from 'prop-types'
 import cn from 'classnames'
-import scrollbarSize from 'dom-helpers/util/scrollbarSize'
+import { findDOMNode } from 'react-dom'
+import scrollbarSize from 'dom-helpers/util/scrollbarSize' // eslint-disable-line
+import getPosition from 'dom-helpers/query/position'
 import React from 'react'
+import Overlay from 'react-overlays/lib/Overlay'
 
+import { popupOffsetShape } from './utils/propTypes'
 import dates from './utils/dates'
 import DateContentRow from './DateContentRow'
+import Popup from './Popup'
 import Header from './Header'
 import { notify } from './utils/helpers'
 
@@ -15,6 +20,8 @@ class TimeGridHeader extends React.Component {
     resources: PropTypes.array,
     getNow: PropTypes.func.isRequired,
     isOverflowing: PropTypes.bool,
+    maxAllDayEvents: PropTypes.number,
+    popupOffset: popupOffsetShape,
 
     rtl: PropTypes.bool,
     width: PropTypes.number,
@@ -31,8 +38,14 @@ class TimeGridHeader extends React.Component {
     onSelectSlot: PropTypes.func,
     onSelectEvent: PropTypes.func,
     onDoubleClickEvent: PropTypes.func,
+    clearSelection: PropTypes.func,
     onDrillDown: PropTypes.func,
+    onShowMore: PropTypes.func,
     getDrilldownView: PropTypes.func.isRequired,
+  }
+
+  state = {
+    overlay: null,
   }
 
   handleHeaderClick = (date, view, e) => {
@@ -117,6 +130,7 @@ class TimeGridHeader extends React.Component {
       localizer,
       accessors,
       components,
+      maxAllDayEvents,
     } = this.props
 
     const resourceId = accessors.resourceId(resource)
@@ -133,6 +147,7 @@ class TimeGridHeader extends React.Component {
         range={range}
         events={eventsToDisplay}
         resourceId={resourceId}
+        maxRows={maxAllDayEvents}
         className="rbc-allday-cell"
         selectable={selectable}
         selected={this.props.selected}
@@ -141,6 +156,7 @@ class TimeGridHeader extends React.Component {
         getters={getters}
         localizer={localizer}
         onSelect={this.props.onSelectEvent}
+        onShowMore={this.handleShowMore}
         onDoubleClick={this.props.onDoubleClickEvent}
         onSelectSlot={this.props.onSelectSlot}
         longPressThreshold={this.props.longPressThreshold}
@@ -148,20 +164,56 @@ class TimeGridHeader extends React.Component {
     )
   }
 
+  renderOverlay() {
+    let overlay = (this.state && this.state.overlay) || {}
+    let {
+      accessors,
+      localizer,
+      components,
+      getters,
+      selected,
+      popupOffset,
+    } = this.props
+
+    return (
+      <Overlay
+        rootClose
+        placement="bottom"
+        container={this}
+        show={!!overlay.position}
+        onHide={() => this.setState({ overlay: null })}
+      >
+        <Popup
+          accessors={accessors}
+          getters={getters}
+          selected={selected}
+          components={components}
+          localizer={localizer}
+          position={overlay.position}
+          events={overlay.events}
+          slotStart={overlay.date}
+          popupOffset={popupOffset}
+          slotEnd={overlay.end}
+          onSelect={this.handleSelectEvent}
+          onDoubleClick={this.handleDoubleClickEvent}
+        />
+      </Overlay>
+    )
+  }
+
   render() {
     let {
       width,
-      rtl,
       resources,
       range,
       isOverflowing,
+      localizer,
       components: { timeGutterHeader: TimeGutterHeader },
     } = this.props
 
+    let gutterDate = range.length ? range[0] : this.props.getNow()
+
     let style = {}
-    if (isOverflowing) {
-      style[rtl ? 'marginLeft' : 'marginRight'] = `${scrollbarSize()}px`
-    }
 
     return (
       <div
@@ -170,7 +222,13 @@ class TimeGridHeader extends React.Component {
         className={cn('rbc-time-header', isOverflowing && 'rbc-overflowing')}
       >
         <div className="rbc-label rbc-time-header-gutter" style={{ width }}>
-          {TimeGutterHeader && <TimeGutterHeader />}
+          {TimeGutterHeader && (
+            <TimeGutterHeader
+              date={gutterDate}
+              localizer={localizer}
+              label={localizer.format(gutterDate, 'timeGutterHeaderFormat')}
+            />
+          )}
         </div>
 
         <div className="rbc-time-header-content">
@@ -191,8 +249,22 @@ class TimeGridHeader extends React.Component {
             this.renderRow()
           )}
         </div>
+        {this.renderOverlay()}
       </div>
     )
+  }
+
+  handleShowMore = (events, date, cell, slot) => {
+    const { onShowMore, clearSelection } = this.props
+    //cancel any pending selections so only the event click goes through.
+    clearSelection()
+    let position = getPosition(cell, findDOMNode(this))
+
+    this.setState({
+      overlay: { date, events, position },
+    })
+
+    notify(onShowMore, [events, date, slot])
   }
 }
 

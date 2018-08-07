@@ -5,6 +5,7 @@ import getScrollTop from 'dom-helpers/query/scrollTop'
 import getScrollLeft from 'dom-helpers/query/scrollLeft'
 import dates from './utils/dates'
 
+import Header from './Header'
 import EventCell from './EventCell'
 import { isSelected } from './utils/selection'
 
@@ -15,10 +16,12 @@ const propTypes = {
     PropTypes.shape({
       x: PropTypes.number,
       y: PropTypes.number,
+      maxWidth: PropTypes.number,
     }),
   ]),
   events: PropTypes.array,
   selected: PropTypes.object,
+  maxWidth: PropTypes.number,
 
   accessors: PropTypes.object.isRequired,
   components: PropTypes.object.isRequired,
@@ -26,8 +29,8 @@ const propTypes = {
   localizer: PropTypes.object.isRequired,
   onSelect: PropTypes.func,
   onDoubleClick: PropTypes.func,
-  slotStart: PropTypes.number,
-  slotEnd: PropTypes.number,
+  slotStart: PropTypes.instanceOf(Date),
+  slotEnd: PropTypes.instanceOf(Date),
 }
 
 class Popup extends React.Component {
@@ -62,6 +65,7 @@ class Popup extends React.Component {
       onDoubleClick,
       slotStart,
       slotEnd,
+      popupOffset = {},
       localizer,
     } = this.props
 
@@ -72,29 +76,43 @@ class Popup extends React.Component {
     let style = {
       top: Math.max(0, top - topOffset),
       left: left - leftOffset,
-      minWidth: width + width / 2,
+      minWidth: Math.min(popupOffset.maxWidth || Infinity, width + width / 2),
+      maxWidth: popupOffset.maxWidth || 'auto',
     }
+
+    let { popupHeader, ...eventComponents } = components
+
+    let HeaderComponent = popupHeader || Header
+
+    let header = (
+      <HeaderComponent
+        date={slotStart}
+        label={localizer.format(slotStart, 'dayHeaderFormat')}
+        localizer={localizer}
+      />
+    )
 
     return (
       <div ref="root" style={style} className="rbc-overlay">
-        <div className="rbc-overlay-header">
-          {localizer.format(slotStart, 'dayHeaderFormat')}
+        <div className="rbc-overlay-header">{header}</div>
+        <div className="rbc-overlay-content">
+          {events.map((event, idx) => (
+            <EventCell
+              key={idx}
+              type="popup"
+              event={event}
+              getters={getters}
+              onSelect={onSelect}
+              accessors={accessors}
+              components={eventComponents}
+              localizer={localizer}
+              onDoubleClick={onDoubleClick}
+              continuesPrior={dates.lt(accessors.end(event), slotStart, 'day')}
+              continuesAfter={dates.gte(accessors.start(event), slotEnd, 'day')}
+              selected={isSelected(event, selected)}
+            />
+          ))}
         </div>
-        {events.map((event, idx) => (
-          <EventCell
-            key={idx}
-            type="popup"
-            event={event}
-            getters={getters}
-            onSelect={onSelect}
-            accessors={accessors}
-            components={components}
-            onDoubleClick={onDoubleClick}
-            continuesPrior={dates.lt(accessors.end(event), slotStart, 'day')}
-            continuesAfter={dates.gte(accessors.start(event), slotEnd, 'day')}
-            selected={isSelected(event, selected)}
-          />
-        ))}
       </div>
     )
   }

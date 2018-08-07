@@ -4,6 +4,7 @@ import raf from 'dom-helpers/util/requestAnimationFrame'
 import React, { Component } from 'react'
 import { findDOMNode } from 'react-dom'
 
+import { popupOffsetShape } from './utils/propTypes'
 import dates from './utils/dates'
 import DayColumn from './DayColumn'
 import TimeGutter from './TimeGutter'
@@ -24,6 +25,8 @@ export default class TimeGrid extends Component {
     min: PropTypes.instanceOf(Date),
     max: PropTypes.instanceOf(Date),
     getNow: PropTypes.func.isRequired,
+    maxAllDayEvents: PropTypes.number,
+    popupOffset: popupOffsetShape,
 
     scrollToTime: PropTypes.instanceOf(Date),
     showMultiDayTimes: PropTypes.bool,
@@ -180,8 +183,10 @@ export default class TimeGrid extends Component {
       accessors,
       getters,
       localizer,
+      popupOffset,
       min,
       max,
+      maxAllDayEvents,
       showMultiDayTimes,
       longPressThreshold,
     } = this.props
@@ -216,7 +221,11 @@ export default class TimeGrid extends Component {
     allDayEvents.sort((a, b) => sortEvents(a, b, accessors))
 
     return (
-      <div className="rbc-time-view">
+      <div
+        className={cn('rbc-time-view', {
+          'rbc-week-view': range.length > 1 && range.length <= 7,
+        })}
+      >
         <TimeGridHeader
           range={range}
           events={allDayEvents}
@@ -229,10 +238,13 @@ export default class TimeGrid extends Component {
           accessors={accessors}
           getters={getters}
           components={components}
+          maxAllDayEvents={maxAllDayEvents}
           isOverflowing={this.state.isOverflowing}
           longPressThreshold={longPressThreshold}
+          popupOffset={popupOffset}
           onSelectSlot={this.handleSelectAllDaySlot}
           onSelectEvent={this.handleSelectAlldayEvent}
+          clearSelection={this.clearSelection}
           onDoubleClickEvent={this.props.onDoubleClickEvent}
           onDrillDown={this.props.onDrillDown}
           getDrilldownView={this.props.getDrilldownView}
@@ -252,13 +264,17 @@ export default class TimeGrid extends Component {
           />
           {this.renderEvents(range, rangeEvents, getNow(), resources || [null])}
 
-          <div ref="timeIndicator" className="rbc-current-time-indicator" />
+          <div
+            ref="timeIndicator"
+            className="rbc-current-time-indicator"
+            data-time={localizer.format(getNow(), 'currentTimeIndicatorFormat')}
+          />
         </div>
       </div>
     )
   }
 
-  clearSelection() {
+  clearSelection = () => {
     clearTimeout(this._selectTimer)
     this._pendingSelection = []
   }

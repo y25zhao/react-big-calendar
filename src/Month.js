@@ -60,6 +60,7 @@ let propTypes = {
     PropTypes.shape({
       x: PropTypes.number,
       y: PropTypes.number,
+      maxWidth: PropTypes.number,
     }),
   ]),
 }
@@ -295,9 +296,10 @@ class MonthView extends React.Component {
 
     if (popup) {
       let position = getPosition(cell, findDOMNode(this))
+      let end = dates.add(date, 1, 'day')
 
       this.setState({
-        overlay: { date, events, position },
+        overlay: { date, end, events, position },
       })
     } else {
       notify(onDrillDown, [date, getDrilldownView(date) || views.DAY])

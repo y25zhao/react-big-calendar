@@ -8,6 +8,7 @@ import {
   dateFormat,
   dateRangeFormat,
   views as componentViews,
+  popupOffsetShape,
 } from './utils/propTypes'
 import warning from 'warning'
 
@@ -418,12 +419,10 @@ class Calendar extends React.Component {
      * ```jsx
      * <BigCalendar popupOffset={30}/>
      * <BigCalendar popupOffset={{x: 30, y: 20}}/>
+     * <BigCalendar popupOffset={{x: 30, y: 20, maxWidth: 320px}}/>
      * ```
      */
-    popupOffset: PropTypes.oneOfType([
-      PropTypes.number,
-      PropTypes.shape({ x: PropTypes.number, y: PropTypes.number }),
-    ]),
+    popupOffset: popupOffsetShape,
 
     /**
      * Allows mouse selection of ranges of dates/times.
@@ -520,6 +519,12 @@ class Calendar extends React.Component {
     max: PropTypes.instanceOf(Date),
 
     /**
+     * Defines maximum number of Allday events that shown up on Week and Day views,
+     * before "Show more" link and popup will appear
+     */
+    maxAllDayEvents: PropTypes.number,
+
+    /**
      * Determines how far down the scroll pane is initially scrolled down.
      */
     scrollToTime: PropTypes.instanceOf(Date),
@@ -570,6 +575,13 @@ class Calendar extends React.Component {
       dayFormat: dateFormat,
 
       /**
+       * Time in currenttime indicator,
+       * e.g. "11:55"
+       *
+       */
+      currentTimeIndicatorFormat: dateFormat,
+
+      /**
        * Week day name format for the Month week day headings,
        * e.g: "Sun", "Mon", "Tue", etc
        *
@@ -580,6 +592,11 @@ class Calendar extends React.Component {
        * The timestamp cell formats in Week and Time views, e.g. "4:00 AM"
        */
       timeGutterFormat: dateFormat,
+
+      /**
+       * The timestamp cell formats in Week and Time views headers, e.g. +2 GMT"
+       */
+      timeGutterHeaderFormat: dateFormat,
 
       /**
        * Toolbar header format for the Month view, e.g "2015 April"
@@ -651,6 +668,7 @@ class Calendar extends React.Component {
       dateCellWrapper: elementType,
       timeSlotWrapper: elementType,
       timeGutterHeader: elementType,
+      popupHeader: elementType,
 
       toolbar: elementType,
 
@@ -663,15 +681,18 @@ class Calendar extends React.Component {
       day: PropTypes.shape({
         header: elementType,
         event: elementType,
+        popupHeader: elementType,
       }),
       week: PropTypes.shape({
         header: elementType,
         event: elementType,
+        popupHeader: elementType,
       }),
       month: PropTypes.shape({
         header: elementType,
         dateHeader: elementType,
         event: elementType,
+        popupHeader: elementType,
       }),
     }),
 
@@ -769,6 +790,7 @@ class Calendar extends React.Component {
         dateCellWrapper: NoopWrapper,
         weekWrapper: NoopWrapper,
         timeSlotWrapper: NoopWrapper,
+        popupHeader: NoopWrapper,
       }),
       accessors: {
         start: wrapAccessor(startAccessor),

@@ -37,7 +37,6 @@ class EventCell extends React.Component {
       continuesAfter,
       accessors,
       getters,
-      children,
       components: { event: Event, eventWrapper: EventWrapper },
       ...props
     } = this.props
@@ -53,21 +52,6 @@ class EventCell extends React.Component {
 
     let userProps = getters.eventProp(event, start, end, selected)
 
-    const content = (
-      <div className="rbc-event-content" title={tooltip || undefined}>
-        {Event ? (
-          <Event
-            event={event}
-            title={title}
-            isAllDay={allDay}
-            localizer={localizer}
-          />
-        ) : (
-          title
-        )}
-      </div>
-    )
-
     return (
       <EventWrapper {...this.props} type="date">
         <div
@@ -82,7 +66,18 @@ class EventCell extends React.Component {
           onClick={e => onSelect && onSelect(event, e)}
           onDoubleClick={e => onDoubleClick && onDoubleClick(event, e)}
         >
-          {typeof children === 'function' ? children(content) : content}
+          {Event ? (
+            <Event
+              event={event}
+              title={title}
+              isAllDay={allDay}
+              localizer={localizer}
+              tooltip={tooltip}
+              style={style}
+            />
+          ) : (
+            title
+          )}
         </div>
       </EventWrapper>
     )

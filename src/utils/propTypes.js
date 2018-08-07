@@ -56,3 +56,12 @@ export let views = PropTypes.oneOfType([
     return err || null
   }),
 ])
+
+export let popupOffsetShape = PropTypes.oneOfType([
+  PropTypes.number,
+  PropTypes.shape({
+    x: PropTypes.number,
+    y: PropTypes.number,
+    maxWidth: PropTypes.number,
+  }),
+])
