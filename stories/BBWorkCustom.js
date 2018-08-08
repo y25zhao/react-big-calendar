@@ -21,15 +21,15 @@ storiesOf('BB Work Custom', module).add('demo', () => (
       y: 0,
       maxWidth: 320,
     }}
+    isExpandable={{
+      x: 240,
+      y: 100,
+    }}
     scrollToTime={moment('08', 'hh').toDate()}
     maxAllDayEvents={4}
     components={{
       timeGutterHeader: ({ label }) => {
         return <b>{label}GMT</b>
-      },
-      popupHeader: args => {
-        console.log(args)
-        return <b>Boom!</b>
       },
     }}
   />

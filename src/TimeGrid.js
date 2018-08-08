@@ -27,6 +27,13 @@ export default class TimeGrid extends Component {
     getNow: PropTypes.func.isRequired,
     maxAllDayEvents: PropTypes.number,
     popupOffset: popupOffsetShape,
+    isExpandable: PropTypes.oneOfType([
+      PropTypes.bool,
+      PropTypes.shape({
+        x: PropTypes.number,
+        y: PropTypes.number,
+      }),
+    ]),
 
     scrollToTime: PropTypes.instanceOf(Date),
     showMultiDayTimes: PropTypes.bool,
@@ -140,7 +147,14 @@ export default class TimeGrid extends Component {
   }
 
   renderEvents(range, events, today, resources) {
-    let { min, max, components, accessors, localizer } = this.props
+    let {
+      min,
+      max,
+      components,
+      accessors,
+      localizer,
+      isExpandable,
+    } = this.props
 
     return range.map((date, idx) => {
       let daysEvents = events.filter(event =>
@@ -160,7 +174,9 @@ export default class TimeGrid extends Component {
             min={dates.merge(date, min)}
             max={dates.merge(date, max)}
             resource={resourceId}
+            parentSelector=".rbc-time-content"
             components={components}
+            isExpandable={isExpandable}
             className={cn({ 'rbc-now': dates.eq(date, today, 'day') })}
             key={idx + '-' + id}
             date={date}

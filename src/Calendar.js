@@ -437,6 +437,17 @@ class Calendar extends React.Component {
     resizable: PropTypes.bool,
 
     /**
+     * Defines whatever event item will be expandable on hover
+     */
+    isExpandable: PropTypes.oneOfType([
+      PropTypes.bool,
+      PropTypes.shape({
+        x: PropTypes.number,
+        y: PropTypes.number,
+      }),
+    ]),
+
+    /**
      * Specifies the number of miliseconds the user must press and hold on the screen for a touch
      * to be considered a "long press." Long presses are used for time slot selection on touch
      * devices.
@@ -790,7 +801,6 @@ class Calendar extends React.Component {
         dateCellWrapper: NoopWrapper,
         weekWrapper: NoopWrapper,
         timeSlotWrapper: NoopWrapper,
-        popupHeader: NoopWrapper,
       }),
       accessors: {
         start: wrapAccessor(startAccessor),

@@ -28,6 +28,14 @@ class DayColumn extends React.Component {
     components: PropTypes.object.isRequired,
     getters: PropTypes.object.isRequired,
     localizer: PropTypes.object.isRequired,
+    parentSelector: PropTypes.string,
+    isExpandable: PropTypes.oneOfType([
+      PropTypes.bool,
+      PropTypes.shape({
+        x: PropTypes.number,
+        y: PropTypes.number,
+      }),
+    ]),
 
     showMultiDayTimes: PropTypes.bool,
     culture: PropTypes.string,
@@ -149,6 +157,8 @@ class DayColumn extends React.Component {
       localizer,
       getters,
       components,
+      parentSelector,
+      isExpandable,
       step,
       timeslots,
     } = this.props
@@ -191,8 +201,10 @@ class DayColumn extends React.Component {
           isRtl={isRtl}
           getters={getters}
           components={components}
+          parentSelector={parentSelector}
           continuesEarlier={continuesEarlier}
           continuesLater={continuesLater}
+          isExpandable={isExpandable}
           accessors={accessors}
           selected={isSelected(event, selected)}
           onClick={e => this._select(event, e)}
