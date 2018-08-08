@@ -171,6 +171,7 @@ class TimeGridHeader extends React.Component {
       localizer,
       components,
       getters,
+      getNow,
       selected,
       popupOffset,
     } = this.props
@@ -191,6 +192,7 @@ class TimeGridHeader extends React.Component {
           localizer={localizer}
           position={overlay.position}
           events={overlay.events}
+          getNow={getNow}
           slotStart={overlay.date}
           popupOffset={popupOffset}
           slotEnd={overlay.end}
@@ -221,7 +223,7 @@ class TimeGridHeader extends React.Component {
         style={style}
         className={cn('rbc-time-header', isOverflowing && 'rbc-overflowing')}
       >
-        <div className="rbc-label rbc-time-header-gutter" style={{ width }}>
+        <div className="rbc-time-header-gutter" style={{ width }}>
           {TimeGutterHeader && (
             <TimeGutterHeader
               date={gutterDate}

@@ -232,7 +232,14 @@ class MonthView extends React.Component {
 
   renderOverlay() {
     let overlay = (this.state && this.state.overlay) || {}
-    let { accessors, localizer, components, getters, selected } = this.props
+    let {
+      accessors,
+      localizer,
+      components,
+      getters,
+      selected,
+      getNow,
+    } = this.props
 
     return (
       <Overlay
@@ -252,6 +259,7 @@ class MonthView extends React.Component {
           events={overlay.events}
           slotStart={overlay.date}
           slotEnd={overlay.end}
+          getNow={getNow}
           onSelect={this.handleSelectEvent}
           onDoubleClick={this.handleDoubleClickEvent}
         />

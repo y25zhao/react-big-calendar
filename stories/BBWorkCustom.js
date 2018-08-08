@@ -22,7 +22,7 @@ storiesOf('BB Work Custom', module).add('demo', () => (
       maxWidth: 320,
     }}
     scrollToTime={moment('08', 'hh').toDate()}
-    maxAllDayEvents={3}
+    maxAllDayEvents={4}
     components={{
       timeGutterHeader: ({ label }) => {
         return <b>{label}GMT</b>

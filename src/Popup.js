@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types'
 import React from 'react'
+import cn from 'classnames'
 import getOffset from 'dom-helpers/query/offset'
 import getScrollTop from 'dom-helpers/query/scrollTop'
 import getScrollLeft from 'dom-helpers/query/scrollLeft'
@@ -11,6 +12,7 @@ import { isSelected } from './utils/selection'
 
 const propTypes = {
   position: PropTypes.object,
+  getNow: PropTypes.func.isRequired,
   popupOffset: PropTypes.oneOfType([
     PropTypes.number,
     PropTypes.shape({
@@ -64,6 +66,7 @@ class Popup extends React.Component {
       onSelect,
       onDoubleClick,
       slotStart,
+      getNow,
       slotEnd,
       popupOffset = {},
       localizer,
@@ -84,6 +87,8 @@ class Popup extends React.Component {
 
     let HeaderComponent = popupHeader || Header
 
+    let today = getNow()
+
     let header = (
       <HeaderComponent
         date={slotStart}
@@ -94,7 +99,13 @@ class Popup extends React.Component {
 
     return (
       <div ref="root" style={style} className="rbc-overlay">
-        <div className="rbc-overlay-header">{header}</div>
+        <div
+          className={cn('rbc-overlay-header', {
+            'rbc-today': dates.eq(slotStart, today, 'day'),
+          })}
+        >
+          {header}
+        </div>
         <div className="rbc-overlay-content">
           {events.map((event, idx) => (
             <EventCell
