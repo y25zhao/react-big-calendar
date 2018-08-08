@@ -50,15 +50,6 @@ export function mergeWithDefaults(
   return {
     ...localizer,
     messages,
-    set: newLocalizer => {
-      if (!newLocalizer.__isLocalizer__) {
-        newLocalizer = new DateLocalizer(newLocalizer)
-        newLocalizer.__isLocalizer__ = true
-      }
-
-      localizer = newLocalizer
-      return localizer
-    },
     startOfWeek: () => localizer.startOfWeek(culture),
     format: (value, format) =>
       localizer.format(value, formats[format] || format, culture),
