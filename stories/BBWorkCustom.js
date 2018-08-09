@@ -33,7 +33,7 @@ storiesOf('BB Work Custom', module).add('demo', () => (
       x: 240,
       y: 100,
     }}
-    smallEventBoundary={80}
+    smallEventBoundary={120}
     scrollToTime={moment('08', 'hh').toDate()}
     maxAllDayEvents={4}
     components={{
