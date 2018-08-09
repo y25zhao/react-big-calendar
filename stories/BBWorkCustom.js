@@ -31,6 +31,10 @@ storiesOf('BB Work Custom', module).add('demo', () => (
       timeGutterHeader: ({ label }) => {
         return <b>{label}GMT</b>
       },
+      day: {
+        event: () => <span>Foo!</span>,
+        allDayEvent: () => <b>Boo!</b>,
+      },
     }}
   />
 ))

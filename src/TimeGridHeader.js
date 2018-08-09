@@ -138,6 +138,11 @@ class TimeGridHeader extends React.Component {
       ? events.filter(event => accessors.resource(event) === resourceId)
       : events
 
+    let allDayEventComponents = {
+      ...components,
+      event: components.allDayEvent,
+    }
+
     return (
       <DateContentRow
         isAllDay
@@ -151,7 +156,7 @@ class TimeGridHeader extends React.Component {
         className="rbc-allday-cell"
         selectable={selectable}
         selected={this.props.selected}
-        components={components}
+        components={allDayEventComponents}
         accessors={accessors}
         getters={getters}
         localizer={localizer}

@@ -693,11 +693,13 @@ class Calendar extends React.Component {
         header: elementType,
         event: elementType,
         popupHeader: elementType,
+        allDayEvent: elementType,
       }),
       week: PropTypes.shape({
         header: elementType,
         event: elementType,
         popupHeader: elementType,
+        allDayEvent: elementType,
       }),
       month: PropTypes.shape({
         header: elementType,
