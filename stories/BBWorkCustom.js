@@ -1,20 +1,28 @@
 import { storiesOf, action } from '@storybook/react'
 import moment from 'moment'
 import React from 'react'
+import raw from './helpers/BBEvents.json'
 
 import '../src/less/styles.less'
 import '../src/addons/dragAndDrop/styles.less'
 import createEvents from './helpers/createEvents'
 
-import { events, Calendar } from './helpers'
+import { Calendar } from './helpers'
+// [
+//   ...createEvents(0, new Date()),
+//   ...createEvents(1, new Date(), true),
+// ]
+
+const events = raw.map(event => ({
+  ...event,
+  start: new Date(event.start),
+  end: new Date(event.end),
+}))
 
 storiesOf('BB Work Custom', module).add('demo', () => (
   <Calendar
     popup
-    events={[
-      ...createEvents(0, new Date()),
-      ...createEvents(1, new Date(), true),
-    ]}
+    events={events}
     onSelectEvent={action('event selected')}
     popupOffset={{
       x: 0,
@@ -25,6 +33,7 @@ storiesOf('BB Work Custom', module).add('demo', () => (
       x: 240,
       y: 100,
     }}
+    smallEventBoundary={80}
     scrollToTime={moment('08', 'hh').toDate()}
     maxAllDayEvents={4}
     components={{

@@ -36,6 +36,7 @@ class DayColumn extends React.Component {
         y: PropTypes.number,
       }),
     ]),
+    smallEventBoundary: PropTypes.oneOfType([PropTypes.bool, PropTypes.number]),
 
     showMultiDayTimes: PropTypes.bool,
     culture: PropTypes.string,
@@ -156,6 +157,7 @@ class DayColumn extends React.Component {
       accessors,
       localizer,
       getters,
+      smallEventBoundary,
       components,
       parentSelector,
       isExpandable,
@@ -206,6 +208,7 @@ class DayColumn extends React.Component {
           continuesLater={continuesLater}
           isExpandable={isExpandable}
           accessors={accessors}
+          smallEventBoundary={smallEventBoundary}
           selected={isSelected(event, selected)}
           onClick={e => this._select(event, e)}
           onDoubleClick={e => this._doubleClick(event, e)}

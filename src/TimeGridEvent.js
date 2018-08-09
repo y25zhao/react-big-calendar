@@ -62,29 +62,35 @@ class TimeGridEvent extends React.Component {
     )
   }
   componentDidMount() {
-    if (
-      this.refs.root &&
-      this.props.parentSelector &&
-      this.props.isExpandable
-    ) {
-      const { isExpandable, parentSelector } = this.props
-      const { top, left } = this.refs.root.getBoundingClientRect()
-      const parent = document.querySelector(parentSelector)
-      let parentHeight = parent.clientHeight
-      let parentWidth = parent.clientWidth
-      let isOpensOverVert = top + isExpandable.y > parentHeight
-      let isOpensOverHor = left + isExpandable.x > parentWidth
+    if (this.refs.root) {
+      const { isExpandable, parentSelector, smallEventBoundary } = this.props
+      if (this.props.parentSelector && this.props.isExpandable) {
+        const { top, left } = this.refs.root.getBoundingClientRect()
+        const parent = document.querySelector(parentSelector)
+        let parentHeight = parent.scrollHeight
+        let parentWidth = parent.scrollWidth
+        let isOpensOverVert = top + isExpandable.y > parentHeight
+        let isOpensOverHor = left + isExpandable.x > parentWidth
 
-      if (isOpensOverVert) {
-        this.refs.root.classList.add('pos-bottom')
-      } else {
-        this.refs.root.classList.remove('pos-bottom')
+        if (isOpensOverVert) {
+          this.refs.root.classList.add('pos-bottom')
+        } else {
+          this.refs.root.classList.remove('pos-bottom')
+        }
+
+        if (isOpensOverHor) {
+          this.refs.root.classList.add('pos-right')
+        } else {
+          this.refs.root.classList.remove('pos-right')
+        }
       }
 
-      if (isOpensOverHor) {
-        this.refs.root.classList.add('pos-right')
-      } else {
-        this.refs.root.classList.remove('pos-right')
+      if (smallEventBoundary) {
+        if (this.refs.root.clientWidth < smallEventBoundary) {
+          this.refs.root.classList.add('size-small')
+        } else {
+          this.refs.root.classList.remove('size-small')
+        }
       }
     }
   }

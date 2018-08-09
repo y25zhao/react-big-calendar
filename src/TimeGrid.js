@@ -34,6 +34,7 @@ export default class TimeGrid extends Component {
         y: PropTypes.number,
       }),
     ]),
+    smallEventBoundary: PropTypes.oneOfType([PropTypes.bool, PropTypes.number]),
 
     scrollToTime: PropTypes.instanceOf(Date),
     showMultiDayTimes: PropTypes.bool,
@@ -153,6 +154,7 @@ export default class TimeGrid extends Component {
       components,
       accessors,
       localizer,
+      smallEventBoundary,
       isExpandable,
     } = this.props
 
@@ -174,6 +176,7 @@ export default class TimeGrid extends Component {
             min={dates.merge(date, min)}
             max={dates.merge(date, max)}
             resource={resourceId}
+            smallEventBoundary={smallEventBoundary}
             parentSelector=".rbc-time-content"
             components={components}
             isExpandable={isExpandable}
