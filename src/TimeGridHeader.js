@@ -181,6 +181,11 @@ class TimeGridHeader extends React.Component {
       popupOffset,
     } = this.props
 
+    let allDayEventComponents = {
+      ...components,
+      event: components.allDayEvent,
+    }
+
     return (
       <Overlay
         rootClose
@@ -193,7 +198,7 @@ class TimeGridHeader extends React.Component {
           accessors={accessors}
           getters={getters}
           selected={selected}
-          components={components}
+          components={allDayEventComponents}
           localizer={localizer}
           position={overlay.position}
           events={overlay.events}
