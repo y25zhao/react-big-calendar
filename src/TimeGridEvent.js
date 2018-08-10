@@ -23,6 +23,7 @@ class TimeGridEvent extends React.Component {
     let tooltip = accessors.tooltip(event)
     let end = accessors.end(event)
     let start = accessors.start(event)
+    let status = accessors.status(event)
 
     let userProps = getters.eventProp(event, start, end, selected)
 
@@ -43,6 +44,7 @@ class TimeGridEvent extends React.Component {
             'rbc-selected': selected,
             'rbc-event-continues-earlier': continuesEarlier,
             'rbc-event-continues-later': continuesLater,
+            [`rbc-event-status-${status}`]: status,
           })}
         >
           {Event ? (

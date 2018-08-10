@@ -752,6 +752,7 @@ class Calendar extends React.Component {
     startAccessor: 'start',
     endAccessor: 'end',
     resourceAccessor: 'resourceId',
+    statusAccessor: 'status',
 
     resourceIdAccessor: 'id',
     resourceTitleAccessor: 'title',
@@ -779,6 +780,7 @@ class Calendar extends React.Component {
     resourceAccessor,
     resourceIdAccessor,
     resourceTitleAccessor,
+    statusAccessor,
     eventPropGetter,
     slotPropGetter,
     dayPropGetter,
@@ -815,6 +817,7 @@ class Calendar extends React.Component {
         end: wrapAccessor(endAccessor),
         allDay: wrapAccessor(allDayAccessor),
         tooltip: wrapAccessor(tooltipAccessor),
+        status: wrapAccessor(statusAccessor),
         title: wrapAccessor(titleAccessor),
         resource: wrapAccessor(resourceAccessor),
         resourceId: wrapAccessor(resourceIdAccessor),

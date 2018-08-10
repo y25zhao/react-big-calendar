@@ -5,6 +5,7 @@
     "start": "2018-07-29T11:00:00.000Z",
     "end": "2018-07-29T12:00:00.000Z",
     "title": "FW:",
+    "status": "tentative",
     "allDay": false
   },
   {
@@ -13,6 +14,7 @@
     "start": "2018-07-30T11:00:00.000Z",
     "end": "2018-07-30T12:00:00.000Z",
     "title": "FW:",
+    "status": "tentative",
     "allDay": false
   },
   {
@@ -21,6 +23,7 @@
     "start": "2018-07-31T11:00:00.000Z",
     "end": "2018-07-31T12:00:00.000Z",
     "title": "FW:",
+    "status": "tentative",
     "allDay": false
   },
   {
@@ -29,6 +32,7 @@
     "start": "2018-08-01T11:00:00.000Z",
     "end": "2018-08-01T12:00:00.000Z",
     "title": "FW:",
+    "status": "tentative",
     "allDay": false
   },
   {
@@ -37,6 +41,7 @@
     "start": "2018-08-02T11:00:00.000Z",
     "end": "2018-08-02T12:00:00.000Z",
     "title": "FW:",
+    "status": "tentative",
     "allDay": false
   },
   {
@@ -45,6 +50,7 @@
     "start": "2018-08-03T11:00:00.000Z",
     "end": "2018-08-03T12:00:00.000Z",
     "title": "FW:",
+    "status": "tentative",
     "allDay": false
   },
   {
@@ -53,6 +59,7 @@
     "start": "2018-08-04T11:00:00.000Z",
     "end": "2018-08-04T12:00:00.000Z",
     "title": "FW:",
+    "status": "tentative",
     "allDay": false
   },
   {
@@ -61,6 +68,7 @@
     "start": "2018-08-05T11:00:00.000Z",
     "end": "2018-08-05T12:00:00.000Z",
     "title": "FW:",
+    "status": "tentative",
     "allDay": false
   },
   {
@@ -69,6 +77,7 @@
     "start": "2018-08-06T11:00:00.000Z",
     "end": "2018-08-06T12:00:00.000Z",
     "title": "FW:",
+    "status": "tentative",
     "allDay": false
   },
   {
@@ -77,6 +86,7 @@
     "start": "2018-08-07T11:00:00.000Z",
     "end": "2018-08-07T12:00:00.000Z",
     "title": "FW:",
+    "status": "tentative",
     "allDay": false
   },
   {
@@ -85,6 +95,7 @@
     "start": "2018-08-08T11:00:00.000Z",
     "end": "2018-08-08T12:00:00.000Z",
     "title": "FW:",
+    "status": "tentative",
     "allDay": false
   },
   {
@@ -93,6 +104,7 @@
     "start": "2018-08-09T11:00:00.000Z",
     "end": "2018-08-09T12:00:00.000Z",
     "title": "FW:",
+    "status": "tentative",
     "allDay": false
   },
   {
@@ -101,6 +113,7 @@
     "start": "2018-08-10T11:00:00.000Z",
     "end": "2018-08-10T12:00:00.000Z",
     "title": "FW:",
+    "status": "tentative",
     "allDay": false
   },
   {
@@ -109,6 +122,7 @@
     "start": "2018-08-11T11:00:00.000Z",
     "end": "2018-08-11T12:00:00.000Z",
     "title": "FW:",
+    "status": "tentative",
     "allDay": false
   },
   {
@@ -117,6 +131,7 @@
     "start": "2018-08-12T11:00:00.000Z",
     "end": "2018-08-12T12:00:00.000Z",
     "title": "FW:",
+    "status": "tentative",
     "allDay": false
   },
   {
@@ -125,6 +140,7 @@
     "start": "2018-08-13T11:00:00.000Z",
     "end": "2018-08-13T12:00:00.000Z",
     "title": "FW:",
+    "status": "tentative",
     "allDay": false
   },
   {
@@ -133,6 +149,7 @@
     "start": "2018-08-14T11:00:00.000Z",
     "end": "2018-08-14T12:00:00.000Z",
     "title": "FW:",
+    "status": "tentative",
     "allDay": false
   },
   {
@@ -405,6 +422,7 @@
     "start": "2018-07-28T21:00:00.000Z",
     "end": "2018-07-29T21:00:00.000Z",
     "title": "Test",
+    "status": "accepted",
     "allDay": true
   },
   {
@@ -413,6 +431,7 @@
     "start": "2018-07-29T21:00:00.000Z",
     "end": "2018-07-30T21:00:00.000Z",
     "title": "Test",
+    "status": "accepted",
     "allDay": true
   },
   {
@@ -421,6 +440,7 @@
     "start": "2018-07-30T21:00:00.000Z",
     "end": "2018-07-31T21:00:00.000Z",
     "title": "Test",
+    "status": "accepted",
     "allDay": true
   },
   {
@@ -429,6 +449,7 @@
     "start": "2018-07-31T21:00:00.000Z",
     "end": "2018-08-01T21:00:00.000Z",
     "title": "Test",
+    "status": "accepted",
     "allDay": true
   },
   {
@@ -437,6 +458,7 @@
     "start": "2018-08-01T21:00:00.000Z",
     "end": "2018-08-02T21:00:00.000Z",
     "title": "Test",
+    "status": "accepted",
     "allDay": true
   },
   {
@@ -445,6 +467,7 @@
     "start": "2018-08-02T21:00:00.000Z",
     "end": "2018-08-03T21:00:00.000Z",
     "title": "Test",
+    "status": "accepted",
     "allDay": true
   },
   {
@@ -453,6 +476,7 @@
     "start": "2018-08-03T21:00:00.000Z",
     "end": "2018-08-04T21:00:00.000Z",
     "title": "Test",
+    "status": "accepted",
     "allDay": true
   },
   {
@@ -461,6 +485,7 @@
     "start": "2018-08-04T21:00:00.000Z",
     "end": "2018-08-05T21:00:00.000Z",
     "title": "Test",
+    "status": "accepted",
     "allDay": true
   },
   {
@@ -469,6 +494,7 @@
     "start": "2018-08-05T21:00:00.000Z",
     "end": "2018-08-06T21:00:00.000Z",
     "title": "Test",
+    "status": "accepted",
     "allDay": true
   },
   {
@@ -477,6 +503,7 @@
     "start": "2018-08-06T21:00:00.000Z",
     "end": "2018-08-07T21:00:00.000Z",
     "title": "Test",
+    "status": "accepted",
     "allDay": true
   },
   {
@@ -485,6 +512,7 @@
     "start": "2018-08-07T21:00:00.000Z",
     "end": "2018-08-08T21:00:00.000Z",
     "title": "Test",
+    "status": "accepted",
     "allDay": true
   },
   {
@@ -493,6 +521,7 @@
     "start": "2018-08-08T21:00:00.000Z",
     "end": "2018-08-09T21:00:00.000Z",
     "title": "Test",
+    "status": "accepted",
     "allDay": true
   },
   {
@@ -501,6 +530,7 @@
     "start": "2018-08-09T21:00:00.000Z",
     "end": "2018-08-10T21:00:00.000Z",
     "title": "Test",
+    "status": "accepted",
     "allDay": true
   },
   {
@@ -509,6 +539,7 @@
     "start": "2018-08-10T21:00:00.000Z",
     "end": "2018-08-11T21:00:00.000Z",
     "title": "Test",
+    "status": "accepted",
     "allDay": true
   },
   {
@@ -517,6 +548,7 @@
     "start": "2018-08-11T21:00:00.000Z",
     "end": "2018-08-12T21:00:00.000Z",
     "title": "Test",
+    "status": "accepted",
     "allDay": true
   },
   {
@@ -525,6 +557,7 @@
     "start": "2018-08-12T21:00:00.000Z",
     "end": "2018-08-13T21:00:00.000Z",
     "title": "Test",
+    "status": "accepted",
     "allDay": true
   },
   {
@@ -533,6 +566,7 @@
     "start": "2018-08-13T21:00:00.000Z",
     "end": "2018-08-14T21:00:00.000Z",
     "title": "Test",
+    "status": "accepted",
     "allDay": true
   },
   {
@@ -541,6 +575,7 @@
     "start": "2018-08-14T21:00:00.000Z",
     "end": "2018-08-15T21:00:00.000Z",
     "title": "Test",
+    "status": "accepted",
     "allDay": true
   },
   {
@@ -549,6 +584,7 @@
     "start": "2018-08-15T21:00:00.000Z",
     "end": "2018-08-16T21:00:00.000Z",
     "title": "Test",
+    "status": "accepted",
     "allDay": true
   },
   {
@@ -557,6 +593,7 @@
     "start": "2018-08-16T21:00:00.000Z",
     "end": "2018-08-17T21:00:00.000Z",
     "title": "Test",
+    "status": "accepted",
     "allDay": true
   },
   {
@@ -565,6 +602,7 @@
     "start": "2018-08-17T21:00:00.000Z",
     "end": "2018-08-18T21:00:00.000Z",
     "title": "Test",
+    "status": "accepted",
     "allDay": true
   },
   {
@@ -573,6 +611,7 @@
     "start": "2018-08-18T21:00:00.000Z",
     "end": "2018-08-19T21:00:00.000Z",
     "title": "Test",
+    "status": "accepted",
     "allDay": true
   },
   {
@@ -581,6 +620,7 @@
     "start": "2018-08-19T21:00:00.000Z",
     "end": "2018-08-20T21:00:00.000Z",
     "title": "Test",
+    "status": "accepted",
     "allDay": true
   },
   {
@@ -589,6 +629,7 @@
     "start": "2018-08-20T21:00:00.000Z",
     "end": "2018-08-21T21:00:00.000Z",
     "title": "Test",
+    "status": "accepted",
     "allDay": true
   },
   {
@@ -597,6 +638,7 @@
     "start": "2018-08-21T21:00:00.000Z",
     "end": "2018-08-22T21:00:00.000Z",
     "title": "Test",
+    "status": "accepted",
     "allDay": true
   },
   {
@@ -605,6 +647,7 @@
     "start": "2018-08-22T21:00:00.000Z",
     "end": "2018-08-23T21:00:00.000Z",
     "title": "Test",
+    "status": "accepted",
     "allDay": true
   },
   {
@@ -613,6 +656,7 @@
     "start": "2018-08-23T21:00:00.000Z",
     "end": "2018-08-24T21:00:00.000Z",
     "title": "Test",
+    "status": "accepted",
     "allDay": true
   },
   {
@@ -621,6 +665,7 @@
     "start": "2018-08-24T21:00:00.000Z",
     "end": "2018-08-25T21:00:00.000Z",
     "title": "Test",
+    "status": "accepted",
     "allDay": true
   },
   {
@@ -629,6 +674,7 @@
     "start": "2018-08-25T21:00:00.000Z",
     "end": "2018-08-26T21:00:00.000Z",
     "title": "Test",
+    "status": "accepted",
     "allDay": true
   },
   {
@@ -637,6 +683,7 @@
     "start": "2018-08-26T21:00:00.000Z",
     "end": "2018-08-27T21:00:00.000Z",
     "title": "Test",
+    "status": "accepted",
     "allDay": true
   },
   {
@@ -645,6 +692,7 @@
     "start": "2018-08-27T21:00:00.000Z",
     "end": "2018-08-28T21:00:00.000Z",
     "title": "Test",
+    "status": "accepted",
     "allDay": true
   },
   {
@@ -653,6 +701,7 @@
     "start": "2018-08-28T21:00:00.000Z",
     "end": "2018-08-29T21:00:00.000Z",
     "title": "Test",
+    "status": "accepted",
     "allDay": true
   },
   {
@@ -661,6 +710,7 @@
     "start": "2018-08-29T21:00:00.000Z",
     "end": "2018-08-30T21:00:00.000Z",
     "title": "Test",
+    "status": "accepted",
     "allDay": true
   },
   {
@@ -669,6 +719,7 @@
     "start": "2018-08-30T21:00:00.000Z",
     "end": "2018-08-31T21:00:00.000Z",
     "title": "Test",
+    "status": "accepted",
     "allDay": true
   },
   {
@@ -677,6 +728,7 @@
     "start": "2018-08-31T21:00:00.000Z",
     "end": "2018-09-01T21:00:00.000Z",
     "title": "Test",
+    "status": "accepted",
     "allDay": true
   },
   {
@@ -6597,6 +6649,7 @@
     "start": "2018-08-25T12:42:00.000Z",
     "end": "2018-08-25T13:42:00.000Z",
     "title": "Automated Meeting ID[43]",
+    "status": "canceled",
     "allDay": false
   },
   {
@@ -6605,6 +6658,7 @@
     "start": "2018-08-26T12:42:00.000Z",
     "end": "2018-08-26T13:42:00.000Z",
     "title": "Automated Meeting ID[43]",
+    "status": "canceled",
     "allDay": false
   },
   {
@@ -6613,6 +6667,7 @@
     "start": "2018-08-27T12:42:00.000Z",
     "end": "2018-08-27T13:42:00.000Z",
     "title": "Automated Meeting ID[43]",
+    "status": "canceled",
     "allDay": false
   },
   {
@@ -6621,6 +6676,7 @@
     "start": "2018-08-28T12:42:00.000Z",
     "end": "2018-08-28T13:42:00.000Z",
     "title": "Automated Meeting ID[43]",
+    "status": "canceled",
     "allDay": false
   },
   {
@@ -6629,6 +6685,7 @@
     "start": "2018-08-29T12:42:00.000Z",
     "end": "2018-08-29T13:42:00.000Z",
     "title": "Automated Meeting ID[43]",
+    "status": "canceled",
     "allDay": false
   },
   {
@@ -6637,6 +6694,7 @@
     "start": "2018-08-30T12:42:00.000Z",
     "end": "2018-08-30T13:42:00.000Z",
     "title": "Automated Meeting ID[43]",
+    "status": "canceled",
     "allDay": false
   },
   {
@@ -6645,6 +6703,7 @@
     "start": "2018-08-31T12:42:00.000Z",
     "end": "2018-08-31T13:42:00.000Z",
     "title": "Automated Meeting ID[43]",
+    "status": "canceled",
     "allDay": false
   },
   {
@@ -6653,6 +6712,7 @@
     "start": "2018-09-01T12:42:00.000Z",
     "end": "2018-09-01T13:42:00.000Z",
     "title": "Automated Meeting ID[43]",
+    "status": "canceled",
     "allDay": false
   },
   {
@@ -6661,6 +6721,7 @@
     "start": "2018-07-29T04:04:00.000Z",
     "end": "2018-07-29T05:04:00.000Z",
     "title": "Automated Meeting ID[44]",
+    "status": "canceled",
     "allDay": false
   },
   {
@@ -6669,6 +6730,7 @@
     "start": "2018-07-30T04:04:00.000Z",
     "end": "2018-07-30T05:04:00.000Z",
     "title": "Automated Meeting ID[44]",
+    "status": "canceled",
     "allDay": false
   },
   {
@@ -6677,6 +6739,7 @@
     "start": "2018-07-31T04:04:00.000Z",
     "end": "2018-07-31T05:04:00.000Z",
     "title": "Automated Meeting ID[44]",
+    "status": "canceled",
     "allDay": false
   },
   {
@@ -6685,6 +6748,7 @@
     "start": "2018-08-01T04:04:00.000Z",
     "end": "2018-08-01T05:04:00.000Z",
     "title": "Automated Meeting ID[44]",
+    "status": "canceled",
     "allDay": false
   },
   {
@@ -6693,6 +6757,7 @@
     "start": "2018-08-02T04:04:00.000Z",
     "end": "2018-08-02T05:04:00.000Z",
     "title": "Automated Meeting ID[44]",
+    "status": "canceled",
     "allDay": false
   },
   {
@@ -6701,6 +6766,7 @@
     "start": "2018-08-03T04:04:00.000Z",
     "end": "2018-08-03T05:04:00.000Z",
     "title": "Automated Meeting ID[44]",
+    "status": "canceled",
     "allDay": false
   },
   {

@@ -46,6 +46,7 @@ class EventCell extends React.Component {
     let end = accessors.end(event)
     let start = accessors.start(event)
     let allDay = accessors.allDay(event)
+    let status = accessors.status(event)
 
     let showAsAllDay =
       isAllDay || allDay || dates.diff(start, dates.ceil(end, 'day'), 'day') > 1
@@ -62,6 +63,7 @@ class EventCell extends React.Component {
             'rbc-event-allday': showAsAllDay,
             'rbc-event-continues-prior': continuesPrior,
             'rbc-event-continues-after': continuesAfter,
+            [`rbc-event-status-${status}`]: status,
           })}
           onClick={e => onSelect && onSelect(event, e)}
           onDoubleClick={e => onDoubleClick && onDoubleClick(event, e)}
