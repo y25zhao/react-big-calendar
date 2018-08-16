@@ -66,7 +66,7 @@ class EventCell extends React.Component {
             'rbc-event-allday': showAsAllDay,
             'rbc-event-continues-prior': continuesPrior,
             'rbc-event-continues-after': continuesAfter,
-            [`rbc-event-status-${status}`]: status,
+            [`rbc-event-status-${status.toLowerCase()}`]: status,
           })}
           onClick={e => onSelect && onSelect(event, e)}
           onDoubleClick={e => onDoubleClick && onDoubleClick(event, e)}
