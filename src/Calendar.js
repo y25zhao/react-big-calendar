@@ -931,6 +931,7 @@ class Calendar extends React.Component {
           onSelectSlot={this.handleSelectSlot}
           onShowMore={this._showMore}
         />
+        {this.props.children}
       </div>
     )
   }

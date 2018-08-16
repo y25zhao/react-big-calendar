@@ -11,7 +11,6 @@ class TimeGridEvent extends React.Component {
       accessors,
       isRtl,
       selected,
-      additional,
       label,
       localizer,
       continuesEarlier,
@@ -61,7 +60,6 @@ class TimeGridEvent extends React.Component {
           ) : (
             title
           )}
-          {additional}
         </div>
       </EventWrapper>
     )

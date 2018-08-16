@@ -1,5 +1,4 @@
 import PropTypes from 'prop-types'
-import elementType from 'react-prop-types/lib/elementType'
 import React from 'react'
 import cn from 'classnames'
 import dates from './utils/dates'
@@ -8,7 +7,6 @@ let propTypes = {
   event: PropTypes.object.isRequired,
   slotStart: PropTypes.instanceOf(Date),
   slotEnd: PropTypes.instanceOf(Date),
-  additional: elementType,
 
   selected: PropTypes.bool,
   isAllDay: PropTypes.bool,
@@ -34,7 +32,6 @@ class EventCell extends React.Component {
       isAllDay,
       onSelect,
       onDoubleClick,
-      additional,
       localizer,
       continuesPrior,
       continuesAfter,
@@ -84,7 +81,6 @@ class EventCell extends React.Component {
           ) : (
             title
           )}
-          {additional}
         </div>
       </EventWrapper>
     )
