@@ -56,6 +56,7 @@ export default class TimeGrid extends Component {
     onSelectEnd: PropTypes.func,
     onSelectStart: PropTypes.func,
     onSelectEvent: PropTypes.func,
+    onResize: PropTypes.func,
     onDoubleClickEvent: PropTypes.func,
     onDrillDown: PropTypes.func,
     getDrilldownView: PropTypes.func.isRequired,
@@ -332,9 +333,17 @@ export default class TimeGrid extends Component {
 
     if (this.state.isOverflowing !== isOverflowing) {
       this._updatingOverflow = true
-      this.setState({ isOverflowing }, () => {
-        this._updatingOverflow = false
-      })
+      this.setState(
+        { isOverflowing },
+        () => {
+          this._updatingOverflow = false
+        },
+        () => {
+          if (this.props.onResize) {
+            this.props.onResize()
+          }
+        }
+      )
     }
   }
 

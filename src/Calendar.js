@@ -325,6 +325,11 @@ class Calendar extends React.Component {
     onSelecting: PropTypes.func,
 
     /**
+     * Function that will run when calendar recalculation is started
+     */
+    onResize: PropTypes.func,
+
+    /**
      * The selected event, if any.
      */
     selected: PropTypes.object,
@@ -871,6 +876,7 @@ class Calendar extends React.Component {
       elementProps,
       date: current,
       getNow,
+      onResize,
       length,
       showMultiDayTimes,
       components: _0,
@@ -922,6 +928,7 @@ class Calendar extends React.Component {
           getters={getters}
           components={components}
           accessors={accessors}
+          onResize={onResize}
           showMultiDayTimes={showMultiDayTimes}
           getDrilldownView={this.getDrilldownView}
           onNavigate={this.handleNavigate}

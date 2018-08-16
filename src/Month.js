@@ -51,6 +51,7 @@ let propTypes = {
   onDoubleClickEvent: PropTypes.func,
   onShowMore: PropTypes.func,
   onDrillDown: PropTypes.func,
+  onResize: PropTypes.func,
   getDrilldownView: PropTypes.func.isRequired,
 
   popup: PropTypes.bool,
@@ -97,7 +98,11 @@ class MonthView extends React.Component {
         if (!running) {
           raf(() => {
             running = false
-            this.setState({ needLimitMeasure: true }) //eslint-disable-line
+            this.setState({ needLimitMeasure: true }, () => {
+              if (this.props.onResize) {
+                this.props.onResize()
+              }
+            })
           })
         }
       }),
