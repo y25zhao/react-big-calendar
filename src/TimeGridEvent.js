@@ -55,6 +55,7 @@ class TimeGridEvent extends React.Component {
               title={title}
               tooltip={tooltip}
               style={style}
+              selected={selected}
               localizer={localizer}
             />
           ) : (

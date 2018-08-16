@@ -78,6 +78,7 @@ class EventCell extends React.Component {
               isAllDay={allDay}
               localizer={localizer}
               tooltip={tooltip}
+              selected={selected}
               style={style}
             />
           ) : (
