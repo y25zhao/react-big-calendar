@@ -45,7 +45,7 @@ class TimeGridEvent extends React.Component {
             'rbc-selected': selected,
             'rbc-event-continues-earlier': continuesEarlier,
             'rbc-event-continues-later': continuesLater,
-            [`rbc-event-status-${status}`]: status,
+            [`rbc-event-status-${status.toLowerCase()}`]: status,
           })}
         >
           {Event ? (
