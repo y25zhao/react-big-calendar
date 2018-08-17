@@ -876,6 +876,7 @@ class Calendar extends React.Component {
       elementProps,
       date: current,
       getNow,
+      children,
       onResize,
       length,
       showMultiDayTimes,
@@ -937,8 +938,9 @@ class Calendar extends React.Component {
           onDoubleClickEvent={this.handleDoubleClickEvent}
           onSelectSlot={this.handleSelectSlot}
           onShowMore={this._showMore}
-        />
-        {this.props.children}
+        >
+          {children}
+        </View>
       </div>
     )
   }

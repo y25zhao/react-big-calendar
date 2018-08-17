@@ -53,18 +53,28 @@ class EventCell extends React.Component {
 
     let userProps = getters.eventProp(event, start, end, selected)
 
+    let additionalClassNames = {
+      'rbc-selected': selected,
+      'rbc-event-allday': showAsAllDay,
+      'rbc-event-continues-prior': continuesPrior,
+      'rbc-event-continues-after': continuesAfter,
+    }
+
+    if (status && status.length) {
+      additionalClassNames[`rbc-event-status-${status.toLowerCase()}`] = status
+    }
+
     return (
       <EventWrapper {...this.props} type="date">
         <div
           {...props}
           style={{ ...userProps.style, ...style }}
-          className={cn('rbc-event', className, userProps.className, {
-            'rbc-selected': selected,
-            'rbc-event-allday': showAsAllDay,
-            'rbc-event-continues-prior': continuesPrior,
-            'rbc-event-continues-after': continuesAfter,
-            [`rbc-event-status-${status.toLowerCase()}`]: status,
-          })}
+          className={cn(
+            'rbc-event',
+            className,
+            userProps.className,
+            additionalClassNames
+          )}
           onClick={e => onSelect && onSelect(event, e)}
           onDoubleClick={e => onDoubleClick && onDoubleClick(event, e)}
         >

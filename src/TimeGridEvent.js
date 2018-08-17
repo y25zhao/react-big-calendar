@@ -29,6 +29,16 @@ class TimeGridEvent extends React.Component {
 
     let { height, top, width, xOffset } = style
 
+    let additionalClassNames = {
+      'rbc-selected': selected,
+      'rbc-event-continues-earlier': continuesEarlier,
+      'rbc-event-continues-later': continuesLater,
+    }
+
+    if (status && status.length) {
+      additionalClassNames[`rbc-event-status-${status.toLowerCase()}`] = status
+    }
+
     return (
       <EventWrapper type="time" {...this.props}>
         <div
@@ -40,12 +50,12 @@ class TimeGridEvent extends React.Component {
             width: `${width}%`,
           }}
           ref="root"
-          className={cn('rbc-event', className, userProps.className, {
-            'rbc-selected': selected,
-            'rbc-event-continues-earlier': continuesEarlier,
-            'rbc-event-continues-later': continuesLater,
-            [`rbc-event-status-${status.toLowerCase()}`]: status,
-          })}
+          className={cn(
+            'rbc-event',
+            className,
+            userProps.className,
+            additionalClassNames
+          )}
         >
           {Event ? (
             <Event

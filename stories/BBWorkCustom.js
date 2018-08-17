@@ -19,6 +19,8 @@ const events = raw.map(event => ({
   end: new Date(event.end),
 }))
 
+events.length = 400
+
 storiesOf('BB Work Custom', module).add('demo', () => (
   <Calendar
     popup
@@ -33,6 +35,7 @@ storiesOf('BB Work Custom', module).add('demo', () => (
       x: 240,
       y: 100,
     }}
+    onResize={console.log}
     smallEventBoundary={120}
     scrollToTime={moment('08', 'hh').toDate()}
     maxAllDayEvents={4}

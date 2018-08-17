@@ -206,6 +206,7 @@ export default class TimeGrid extends Component {
       popupOffset,
       min,
       max,
+      children,
       maxAllDayEvents,
       showMultiDayTimes,
       longPressThreshold,
@@ -283,7 +284,7 @@ export default class TimeGrid extends Component {
             className="rbc-time-gutter"
           />
           {this.renderEvents(range, rangeEvents, getNow(), resources || [null])}
-
+          {children}
           <div
             ref="timeIndicator"
             className="rbc-current-time-indicator"

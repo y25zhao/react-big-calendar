@@ -36,7 +36,7 @@ class Agenda extends React.Component {
   }
 
   render() {
-    let { length, date, events, accessors, localizer } = this.props
+    let { length, date, events, accessors, localizer, children } = this.props
     let { messages } = localizer
     let end = dates.add(date, length, 'day')
 
@@ -70,6 +70,7 @@ class Agenda extends React.Component {
                 </tbody>
               </table>
             </div>
+            {children}
           </React.Fragment>
         ) : (
           <span className="rbc-agenda-empty">{messages.noEventsInRange}</span>

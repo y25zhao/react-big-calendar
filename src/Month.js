@@ -123,7 +123,7 @@ class MonthView extends React.Component {
   }
 
   render() {
-    let { date, localizer, className } = this.props,
+    let { date, localizer, className, children } = this.props,
       month = dates.visibleDays(date, localizer),
       weeks = chunk(month, 7)
 
@@ -136,6 +136,7 @@ class MonthView extends React.Component {
         </div>
         {weeks.map(this.renderWeek)}
         {this.props.popup && this.renderOverlay()}
+        {children}
       </div>
     )
   }
