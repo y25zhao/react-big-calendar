@@ -47,6 +47,7 @@ class DayColumn extends React.Component {
     eventOffset: PropTypes.number,
     longPressThreshold: PropTypes.number,
 
+    onClick: PropTypes.func,
     onSelecting: PropTypes.func,
     onSelectSlot: PropTypes.func.isRequired,
     onSelectEvent: PropTypes.func.isRequired,
@@ -157,6 +158,7 @@ class DayColumn extends React.Component {
       accessors,
       localizer,
       getters,
+      onClick,
       smallEventBoundary,
       components,
       parentSelector,
@@ -210,7 +212,10 @@ class DayColumn extends React.Component {
           accessors={accessors}
           smallEventBoundary={smallEventBoundary}
           selected={isSelected(event, selected)}
-          onClick={e => this._select(event, e)}
+          onClick={e => {
+            this._select(event, e)
+            onClick && onClick(event, e.target)
+          }}
           onDoubleClick={e => this._doubleClick(event, e)}
         />
       )

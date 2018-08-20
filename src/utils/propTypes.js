@@ -62,6 +62,6 @@ export let popupOffsetShape = PropTypes.oneOfType([
   PropTypes.shape({
     x: PropTypes.number,
     y: PropTypes.number,
-    maxWidth: PropTypes.number,
+    width: PropTypes.number,
   }),
 ])

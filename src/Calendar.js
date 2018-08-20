@@ -87,6 +87,11 @@ class Calendar extends React.Component {
     view: PropTypes.string,
 
     /**
+     * Event that should be shown explisitly
+     */
+    detailView: PropTypes.object,
+
+    /**
      * The initial view set for the Calendar.
      * @type Calendar.Views ('month'|'week'|'work_week'|'day'|'agenda')
      * @default 'month'
@@ -427,7 +432,9 @@ class Calendar extends React.Component {
      * <BigCalendar popupOffset={{x: 30, y: 20, maxWidth: 320px}}/>
      * ```
      */
-    popupOffset: popupOffsetShape,
+    overlayOffset: popupOffsetShape,
+
+    detailOffset: popupOffsetShape,
 
     /**
      * Allows mouse selection of ranges of dates/times.
@@ -604,6 +611,11 @@ class Calendar extends React.Component {
       currentTimeIndicatorFormat: dateFormat,
 
       /**
+       * Event for detail view
+       */
+      detailView: PropTypes.object,
+
+      /**
        * Week day name format for the Month week day headings,
        * e.g: "Sun", "Mon", "Tue", etc
        *
@@ -691,6 +703,7 @@ class Calendar extends React.Component {
       timeSlotWrapper: elementType,
       timeGutterHeader: elementType,
       popupHeader: elementType,
+      detailView: elementType,
 
       toolbar: elementType,
 
@@ -876,7 +889,7 @@ class Calendar extends React.Component {
       elementProps,
       date: current,
       getNow,
-      children,
+      detailView,
       onResize,
       length,
       showMultiDayTimes,
@@ -927,6 +940,7 @@ class Calendar extends React.Component {
           length={length}
           localizer={localizer}
           getters={getters}
+          detailView={detailView}
           components={components}
           accessors={accessors}
           onResize={onResize}
@@ -938,9 +952,7 @@ class Calendar extends React.Component {
           onDoubleClickEvent={this.handleDoubleClickEvent}
           onSelectSlot={this.handleSelectSlot}
           onShowMore={this._showMore}
-        >
-          {children}
-        </View>
+        />
       </div>
     )
   }

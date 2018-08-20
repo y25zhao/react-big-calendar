@@ -10,6 +10,7 @@ import { popupOffsetShape } from './utils/propTypes'
 import dates from './utils/dates'
 import DateContentRow from './DateContentRow'
 import Popup from './Popup'
+import Position from './Position'
 import Header from './Header'
 import { notify } from './utils/helpers'
 
@@ -22,9 +23,11 @@ class TimeGridHeader extends React.Component {
     isOverflowing: PropTypes.bool,
     maxAllDayEvents: PropTypes.number,
     popupOffset: popupOffsetShape,
+    detailOffset: popupOffsetShape,
 
     rtl: PropTypes.bool,
     width: PropTypes.number,
+    renderDetailView: PropTypes.oneOfType([PropTypes.bool, PropTypes.func]),
 
     localizer: PropTypes.object.isRequired,
     accessors: PropTypes.object.isRequired,
@@ -35,6 +38,8 @@ class TimeGridHeader extends React.Component {
     selectable: PropTypes.oneOf([true, false, 'ignoreEvents']),
     longPressThreshold: PropTypes.number,
 
+    onClick: PropTypes.func,
+    handleDetailEvent: PropTypes.func,
     onSelectSlot: PropTypes.func,
     onSelectEvent: PropTypes.func,
     onDoubleClickEvent: PropTypes.func,
@@ -160,6 +165,7 @@ class TimeGridHeader extends React.Component {
         accessors={accessors}
         getters={getters}
         localizer={localizer}
+        onClick={this.props.handleDetailEvent(this.refs.headerCell)}
         onSelect={this.props.onSelectEvent}
         onShowMore={this.handleShowMore}
         onDoubleClick={this.props.onDoubleClickEvent}
@@ -194,21 +200,26 @@ class TimeGridHeader extends React.Component {
         show={!!overlay.position}
         onHide={() => this.setState({ overlay: null })}
       >
-        <Popup
-          accessors={accessors}
-          getters={getters}
-          selected={selected}
-          components={allDayEventComponents}
-          localizer={localizer}
+        <Position
           position={overlay.position}
-          events={overlay.events}
-          getNow={getNow}
-          slotStart={overlay.date}
-          popupOffset={popupOffset}
-          slotEnd={overlay.end}
-          onSelect={this.handleSelectEvent}
-          onDoubleClick={this.handleDoubleClickEvent}
-        />
+          container={this.refs.headerCell}
+          offset={popupOffset}
+        >
+          <Popup
+            accessors={accessors}
+            getters={getters}
+            selected={selected}
+            components={allDayEventComponents}
+            localizer={localizer}
+            events={overlay.events}
+            getNow={getNow}
+            onClick={this.props.handleDetailEvent(this.refs.headerCell)}
+            slotStart={overlay.date}
+            slotEnd={overlay.end}
+            onSelect={this.handleSelectEvent}
+            onDoubleClick={this.handleDoubleClickEvent}
+          />
+        </Position>
       </Overlay>
     )
   }
@@ -218,6 +229,7 @@ class TimeGridHeader extends React.Component {
       width,
       resources,
       range,
+      renderDetailView,
       isOverflowing,
       localizer,
       components: { timeGutterHeader: TimeGutterHeader },
@@ -261,6 +273,7 @@ class TimeGridHeader extends React.Component {
             this.renderRow()
           )}
         </div>
+        {renderDetailView && renderDetailView(this.refs.headerCell)}
         {this.renderOverlay()}
       </div>
     )

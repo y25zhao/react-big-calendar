@@ -19,6 +19,7 @@ let propTypes = {
   localizer: PropTypes.object.isRequired,
 
   onSelect: PropTypes.func,
+  onClick: PropTypes.func,
   onDoubleClick: PropTypes.func,
 }
 
@@ -33,6 +34,7 @@ class EventCell extends React.Component {
       onSelect,
       onDoubleClick,
       localizer,
+      onClick,
       continuesPrior,
       continuesAfter,
       accessors,
@@ -68,6 +70,7 @@ class EventCell extends React.Component {
       <EventWrapper {...this.props} type="date">
         <div
           {...props}
+          ref="cell"
           style={{ ...userProps.style, ...style }}
           className={cn(
             'rbc-event',
@@ -75,7 +78,10 @@ class EventCell extends React.Component {
             userProps.className,
             additionalClassNames
           )}
-          onClick={e => onSelect && onSelect(event, e)}
+          onClick={e => {
+            onSelect && onSelect(event, e)
+            onClick && onClick(event, e.target)
+          }}
           onDoubleClick={e => onDoubleClick && onDoubleClick(event, e)}
         >
           {Event ? (

@@ -12,6 +12,7 @@ class TimeGridEvent extends React.Component {
       isRtl,
       selected,
       label,
+      onClick,
       localizer,
       continuesEarlier,
       continuesLater,
@@ -50,6 +51,7 @@ class TimeGridEvent extends React.Component {
             width: `${width}%`,
           }}
           ref="root"
+          onClick={onClick}
           className={cn(
             'rbc-event',
             className,

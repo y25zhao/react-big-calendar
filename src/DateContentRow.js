@@ -28,6 +28,7 @@ const propTypes = {
 
   onShowMore: PropTypes.func,
   onSelectSlot: PropTypes.func,
+  onClick: PropTypes.func,
   onSelect: PropTypes.func,
   onSelectEnd: PropTypes.func,
   onSelectStart: PropTypes.func,
@@ -153,6 +154,7 @@ class DateContentRow extends React.Component {
       onSelectStart,
       onSelectEnd,
       onDoubleClick,
+      onClick,
       resourceId,
       longPressThreshold,
       isAllDay,
@@ -172,6 +174,7 @@ class DateContentRow extends React.Component {
       localizer,
       components,
       onSelect,
+      onClick,
       onDoubleClick,
       resourceId,
       slotMetrics: metrics,

@@ -348,15 +348,14 @@ button.rbc-input::-moz-focus-inner {
   border-left-width: 0;
   border-right: 1px solid #ddd;
 }
-.rbc-overlay {
-  position: absolute;
-  z-index: 5;
+.rbc-popup {
+  display: block;
   border: 1px solid #e5e5e5;
   background-color: #fff;
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.25);
   padding: 10px;
 }
-.rbc-overlay > * + * {
+.rbc-popup > * + * {
   margin-top: 1px;
 }
 .rbc-overlay-header {
@@ -575,6 +574,7 @@ button.rbc-input::-moz-focus-inner {
   -webkit-flex-direction: row;
   -ms-flex-direction: row;
   flex-direction: row;
+  position: relative;
 }
 .rbc-time-header.rbc-overflowing {
   border-right: 1px solid #ddd;

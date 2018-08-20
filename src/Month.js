@@ -9,10 +9,13 @@ import chunk from 'lodash/chunk'
 import { navigate, views } from './utils/constants'
 import { notify } from './utils/helpers'
 import getPosition from 'dom-helpers/query/position'
+import { popupOffsetShape } from './utils/propTypes'
 import raf from 'dom-helpers/util/requestAnimationFrame'
 
 import Popup from './Popup'
+import DetailView from './DetailView'
 import Overlay from 'react-overlays/lib/Overlay'
+import Position from './Position'
 import DateContentRow from './DateContentRow'
 import Header from './Header'
 import DateHeader from './DateHeader'
@@ -46,6 +49,7 @@ let propTypes = {
   longPressThreshold: PropTypes.number,
 
   onNavigate: PropTypes.func,
+  onClick: PropTypes.func,
   onSelectSlot: PropTypes.func,
   onSelectEvent: PropTypes.func,
   onDoubleClickEvent: PropTypes.func,
@@ -56,14 +60,8 @@ let propTypes = {
 
   popup: PropTypes.bool,
 
-  popupOffset: PropTypes.oneOfType([
-    PropTypes.number,
-    PropTypes.shape({
-      x: PropTypes.number,
-      y: PropTypes.number,
-      maxWidth: PropTypes.number,
-    }),
-  ]),
+  overlayOffset: popupOffsetShape,
+  detailOffset: popupOffsetShape,
 }
 
 class MonthView extends React.Component {
@@ -80,6 +78,8 @@ class MonthView extends React.Component {
       needLimitMeasure: true,
     }
   }
+
+  hide = what => () => this.setState(() => ({ [what]: null }))
 
   componentWillReceiveProps({ date }) {
     this.setState({
@@ -123,20 +123,20 @@ class MonthView extends React.Component {
   }
 
   render() {
-    let { date, localizer, className, children } = this.props,
+    let { date, localizer, className } = this.props,
       month = dates.visibleDays(date, localizer),
       weeks = chunk(month, 7)
 
     this._weekCount = weeks.length
 
     return (
-      <div className={cn('rbc-month-view', className)}>
+      <div ref="content" className={cn('rbc-month-view', className)}>
         <div className="rbc-row rbc-month-header">
           {this.renderHeaders(weeks[0])}
         </div>
         {weeks.map(this.renderWeek)}
         {this.props.popup && this.renderOverlay()}
-        {children}
+        {this.props.components.detailView && this.renderDetailView()}
       </div>
     )
   }
@@ -182,6 +182,7 @@ class MonthView extends React.Component {
         renderForMeasure={needLimitMeasure}
         onShowMore={this.handleShowMore}
         onSelect={this.handleSelectEvent}
+        onClick={this.handleDetailEvent}
         onDoubleClick={this.handleDoubleClickEvent}
         onSelectSlot={this.handleSelectSlot}
         longPressThreshold={longPressThreshold}
@@ -237,11 +238,13 @@ class MonthView extends React.Component {
   }
 
   renderOverlay() {
-    let overlay = (this.state && this.state.overlay) || {}
+    let { position, events, date, end } =
+      (this.state && this.state.overlay) || {}
     let {
       accessors,
       localizer,
       components,
+      overlayOffset,
       getters,
       selected,
       getNow,
@@ -249,26 +252,64 @@ class MonthView extends React.Component {
 
     return (
       <Overlay
+        container={this}
+        show={!!position}
         rootClose
         placement="bottom"
-        container={this}
-        show={!!overlay.position}
-        onHide={() => this.setState({ overlay: null })}
+        onHide={this.hide('overlay')}
       >
-        <Popup
-          accessors={accessors}
-          getters={getters}
-          selected={selected}
-          components={components}
-          localizer={localizer}
-          position={overlay.position}
-          events={overlay.events}
-          slotStart={overlay.date}
-          slotEnd={overlay.end}
-          getNow={getNow}
-          onSelect={this.handleSelectEvent}
-          onDoubleClick={this.handleDoubleClickEvent}
-        />
+        <Position
+          container={this.refs.content}
+          offset={overlayOffset}
+          position={position}
+        >
+          <Popup
+            accessors={accessors}
+            getters={getters}
+            selected={selected}
+            components={components}
+            localizer={localizer}
+            events={events}
+            slotStart={date}
+            slotEnd={end}
+            getNow={getNow}
+            onSelect={this.handleSelectEvent}
+            onClick={this.handleDetailEvent}
+            onDoubleClick={this.handleDoubleClickEvent}
+            rtl={this.props.rtl}
+          />
+        </Position>
+      </Overlay>
+    )
+  }
+
+  renderDetailView() {
+    const { event, position } = (this.state && this.state.detail) || {}
+    const View = this.props.components.detailView
+    let { accessors, localizer, getters, detailOffset, getNow } = this.props
+
+    return (
+      <Overlay
+        container={this}
+        show={!!position}
+        rootClose
+        placement="bottom"
+        onHide={this.hide('detail')}
+      >
+        <Position
+          container={this.refs.content}
+          offset={detailOffset}
+          position={position}
+        >
+          <DetailView
+            accessors={accessors}
+            getters={getters}
+            View={View}
+            localizer={localizer}
+            event={event}
+            getNow={getNow}
+          />
+        </Position>
       </Overlay>
     )
   }
@@ -312,14 +353,28 @@ class MonthView extends React.Component {
       let position = getPosition(cell, findDOMNode(this))
       let end = dates.add(date, 1, 'day')
 
-      this.setState({
+      this.setState(() => ({
         overlay: { date, end, events, position },
-      })
+      }))
     } else {
       notify(onDrillDown, [date, getDrilldownView(date) || views.DAY])
     }
 
     notify(onShowMore, [events, date, slot])
+  }
+
+  handleDetailEvent = (event, cell) => {
+    const { components, onClick } = this.props
+    if (components.detailView) {
+      this.clearSelection()
+      this.setState(() => ({
+        detail: {
+          event: event,
+          position: getPosition(cell, findDOMNode(this)),
+        },
+      }))
+    }
+    notify(onClick, [event])
   }
 
   selectDates(slotInfo) {

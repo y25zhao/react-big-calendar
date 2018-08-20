@@ -17,6 +17,7 @@ export default {
     getters: PropTypes.object.isRequired,
 
     onSelect: PropTypes.func,
+    onClick: PropTypes.func,
     onDoubleClick: PropTypes.func,
   },
 
@@ -31,6 +32,7 @@ export default {
       isAllDay: _,
       accessors,
       getters,
+      onClick,
       onSelect,
       onDoubleClick,
       localizer,
@@ -49,6 +51,7 @@ export default {
         accessors={accessors}
         components={components}
         onSelect={onSelect}
+        onClick={onClick}
         onDoubleClick={onDoubleClick}
         continuesPrior={continuesPrior}
         continuesAfter={continuesAfter}

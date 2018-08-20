@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types'
 import cn from 'classnames'
 import raf from 'dom-helpers/util/requestAnimationFrame'
+import getPosition from 'dom-helpers/query/position'
 import React, { Component } from 'react'
 import { findDOMNode } from 'react-dom'
 
@@ -11,6 +12,9 @@ import TimeGutter from './TimeGutter'
 
 import getWidth from 'dom-helpers/query/width'
 import TimeGridHeader from './TimeGridHeader'
+import DetailView from './DetailView'
+import Position from './Position'
+import Overlay from 'react-overlays/lib/Overlay'
 import { notify } from './utils/helpers'
 import { inRange, sortEvents } from './utils/eventLevels'
 
@@ -27,6 +31,7 @@ export default class TimeGrid extends Component {
     getNow: PropTypes.func.isRequired,
     maxAllDayEvents: PropTypes.number,
     popupOffset: popupOffsetShape,
+    detailOffset: popupOffsetShape,
     isExpandable: PropTypes.oneOfType([
       PropTypes.bool,
       PropTypes.shape({
@@ -51,6 +56,7 @@ export default class TimeGrid extends Component {
     selectable: PropTypes.oneOf([true, false, 'ignoreEvents']),
     longPressThreshold: PropTypes.number,
 
+    onClick: PropTypes.func,
     onNavigate: PropTypes.func,
     onSelectSlot: PropTypes.func,
     onSelectEnd: PropTypes.func,
@@ -74,6 +80,8 @@ export default class TimeGrid extends Component {
     super(props)
 
     this.state = { gutterWidth: undefined, isOverflowing: null }
+
+    this.renderDetailView = this.renderDetailView.bind(this)
   }
 
   componentWillMount() {
@@ -180,6 +188,7 @@ export default class TimeGrid extends Component {
             smallEventBoundary={smallEventBoundary}
             parentSelector=".rbc-time-content"
             components={components}
+            onClick={this.handleDetailEvent(this.refs.content)}
             isExpandable={isExpandable}
             className={cn({ 'rbc-now': dates.eq(date, today, 'day') })}
             key={idx + '-' + id}
@@ -206,11 +215,13 @@ export default class TimeGrid extends Component {
       popupOffset,
       min,
       max,
-      children,
       maxAllDayEvents,
       showMultiDayTimes,
       longPressThreshold,
     } = this.props
+
+    let { event } = this.state.detail || {}
+    let isAllday = event && accessors.allDay(event)
 
     width = width || this.state.gutterWidth
 
@@ -268,6 +279,9 @@ export default class TimeGrid extends Component {
           clearSelection={this.clearSelection}
           onDoubleClickEvent={this.props.onDoubleClickEvent}
           onDrillDown={this.props.onDrillDown}
+          detailOffset={this.props.detailOffset}
+          renderDetailView={isAllday && this.renderDetailView}
+          handleDetailEvent={this.handleDetailEvent}
           getDrilldownView={this.props.getDrilldownView}
         />
         <div ref="content" className="rbc-time-content">
@@ -284,7 +298,9 @@ export default class TimeGrid extends Component {
             className="rbc-time-gutter"
           />
           {this.renderEvents(range, rangeEvents, getNow(), resources || [null])}
-          {children}
+          {components.detailView &&
+            !isAllday &&
+            this.renderDetailView(this.refs.content)}
           <div
             ref="timeIndicator"
             className="rbc-current-time-indicator"
@@ -387,5 +403,54 @@ export default class TimeGrid extends Component {
 
       this.triggerTimeIndicatorUpdate()
     }, 60000)
+  }
+
+  handleDetailEvent = container => (event, cell) => {
+    const { components, onClick } = this.props
+    if (components.detailView) {
+      this.clearSelection()
+      this.setState(() => ({
+        detail: {
+          event: event,
+          position: getPosition(cell, findDOMNode(container)),
+        },
+      }))
+    }
+    notify(onClick, [event])
+  }
+
+  hide = what => () => this.setState(() => ({ [what]: null }))
+
+  renderDetailView = container => {
+    const { event, position } = (this.state && this.state.detail) || {}
+    const View = this.props.components.detailView
+    let isAllday = event && this.props.accessors.allDay(event)
+    let { accessors, localizer, getters, detailOffset, getNow } = this.props
+
+    return (
+      <Overlay
+        container={container}
+        show={!!position}
+        rootClose
+        placement="bottom"
+        onHide={this.hide('detail')}
+      >
+        <Position
+          disable={isAllday ? 'top' : false}
+          container={container}
+          position={position}
+          offset={detailOffset}
+        >
+          <DetailView
+            accessors={accessors}
+            getters={getters}
+            View={View}
+            localizer={localizer}
+            event={event}
+            getNow={getNow}
+          />
+        </Position>
+      </Overlay>
+    )
   }
 }

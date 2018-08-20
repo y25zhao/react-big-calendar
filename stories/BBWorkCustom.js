@@ -26,10 +26,15 @@ storiesOf('BB Work Custom', module).add('demo', () => (
     popup
     events={events}
     onSelectEvent={action('event selected')}
-    popupOffset={{
+    overlayOffset={{
       x: 0,
       y: 0,
-      maxWidth: 320,
+      width: 320,
+    }}
+    detailOffset={{
+      y: 0,
+      x: 0,
+      width: 480,
     }}
     isExpandable={{
       x: 240,
@@ -40,6 +45,18 @@ storiesOf('BB Work Custom', module).add('demo', () => (
     scrollToTime={moment('08', 'hh').toDate()}
     maxAllDayEvents={4}
     components={{
+      detailView: event => {
+        return (
+          <b className="rbc-popup">
+            <div>Boo! {event.label}</div>
+            <div>Boo!</div>
+            <div>Boo!</div>
+            <div>Boo!</div>
+            <div>Boo!</div>
+            <div>Boo!</div>
+          </b>
+        )
+      },
       timeGutterHeader: ({ label }) => {
         return <b>{label}GMT</b>
       },
