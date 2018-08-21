@@ -204,6 +204,7 @@ class TimeGridHeader extends React.Component {
           position={overlay.position}
           container={this.refs.headerCell}
           offset={popupOffset}
+          disable="top"
         >
           <Popup
             accessors={accessors}

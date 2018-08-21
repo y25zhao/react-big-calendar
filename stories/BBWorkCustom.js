@@ -32,8 +32,8 @@ storiesOf('BB Work Custom', module).add('demo', () => (
       width: 320,
     }}
     detailOffset={{
-      y: 0,
-      x: 0,
+      y: 8,
+      x: 8,
       width: 480,
     }}
     isExpandable={{

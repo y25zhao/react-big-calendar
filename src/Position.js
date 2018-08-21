@@ -6,11 +6,6 @@ import getScrollTop from 'dom-helpers/query/scrollTop'
 import getScrollLeft from 'dom-helpers/query/scrollLeft'
 
 export default class Position extends React.Component {
-  state = {
-    topAdj: 0,
-    leftAdj: 0,
-  }
-
   static propTypes = {
     disable: PropTypes.oneOf([true, false, 'top', 'left']),
     offset: popupOffsetShape,
@@ -27,33 +22,33 @@ export default class Position extends React.Component {
   }
 
   componentDidMount() {
-    const result = { topAdj: 0, leftAdj: 0 }
-    const { container, disable } = this.props
+    const { container, disable, offset = {} } = this.props
+    const el = this.refs.root
 
-    const { top, left, width, height } = getPosition(this.refs.root, container)
+    const { top, left, width, height } = getPosition(el, container)
     const bottom = top + height
     const right = left + width
     const vertGap = container.clientHeight + getScrollTop(container)
     const horGap = container.clientWidth + getScrollLeft(container)
 
     if (disable !== true && (bottom >= vertGap || right >= horGap)) {
-      if (bottom > vertGap && disable !== 'top')
-        result.topAdj = bottom - vertGap
-      if (right > horGap && disable !== 'left') result.leftAdj = right - horGap
-
-      this.setState(() => result)
+      if (bottom > vertGap && disable !== 'top') {
+        el.style.top = `${top - (bottom - vertGap) - (offset.y || 0)}px`
+      }
+      if (right > horGap && disable !== 'left') {
+        el.style.left = `${left - (right - horGap) - (offset.x || 0)}px`
+      }
     }
   }
 
   render() {
     let { offset = {}, children, position = {}, zIndex } = this.props
     let { left, width, top } = position
-    let { topAdj, leftAdj } = this.state
 
     let style = {
       position: 'absolute',
-      top: Math.max(0, top - topAdj - (offset.y || 0)),
-      left: Math.max(0, left - leftAdj - (offset.x || 0)),
+      top: Math.max(0, top) + (offset.y || 0),
+      left: Math.max(0, left) + (offset.x || 0),
       zIndex: zIndex,
       width: offset.width || width + width / 2,
     }
