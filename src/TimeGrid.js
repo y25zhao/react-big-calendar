@@ -446,6 +446,7 @@ export default class TimeGrid extends Component {
             getters={getters}
             View={View}
             localizer={localizer}
+            hide={this.hide('detail')}
             event={event}
             getNow={getNow}
           />

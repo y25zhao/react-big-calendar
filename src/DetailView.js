@@ -6,6 +6,7 @@ export default class DetailView extends React.Component {
   static propTypes = {
     View: elementType.isRequired,
     getNow: PropTypes.func.isRequired,
+    hide: PropTypes.func.isRequired,
     event: PropTypes.object,
     accessors: PropTypes.object.isRequired,
     getters: PropTypes.object.isRequired,
@@ -13,7 +14,15 @@ export default class DetailView extends React.Component {
   }
 
   render() {
-    let { event, getters, accessors, getNow, localizer, View } = this.props
+    let {
+      event,
+      getters,
+      accessors,
+      getNow,
+      localizer,
+      View,
+      hide,
+    } = this.props
 
     return (
       <View
@@ -21,6 +30,7 @@ export default class DetailView extends React.Component {
         getters={getters}
         accessors={accessors}
         localizer={localizer}
+        hide={hide}
         getNow={getNow}
       />
     )

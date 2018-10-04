@@ -307,6 +307,7 @@ class MonthView extends React.Component {
             View={View}
             localizer={localizer}
             event={event}
+            hide={this.hide('detail')}
             getNow={getNow}
           />
         </Position>
