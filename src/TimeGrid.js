@@ -79,7 +79,11 @@ export default class TimeGrid extends Component {
   constructor(props) {
     super(props)
 
-    this.state = { gutterWidth: undefined, isOverflowing: null }
+    this.state = {
+      gutterWidth: undefined,
+      isOverflowing: null,
+      currentTime: '',
+    }
 
     this.renderDetailView = this.renderDetailView.bind(this)
   }
@@ -97,6 +101,7 @@ export default class TimeGrid extends Component {
 
     this.applyScroll()
 
+    this.updateCurrentTime()
     this.positionTimeIndicator()
     this.triggerTimeIndicatorUpdate()
 
@@ -304,7 +309,7 @@ export default class TimeGrid extends Component {
           <div
             ref="timeIndicator"
             className="rbc-current-time-indicator"
-            data-time={localizer.format(getNow(), 'currentTimeIndicatorFormat')}
+            data-time={this.state.currentTime}
           />
         </div>
       </div>
@@ -396,9 +401,19 @@ export default class TimeGrid extends Component {
     }
   }
 
+  updateCurrentTime() {
+    const { localizer, getNow } = this.props
+
+    this.setState({
+      currentTime: localizer.format(getNow(), 'currentTimeIndicatorFormat'),
+    })
+  }
+
   triggerTimeIndicatorUpdate() {
     // Update the position of the time indicator every minute
     this._timeIndicatorTimeout = window.setTimeout(() => {
+      this.updateCurrentTime()
+
       this.positionTimeIndicator()
 
       this.triggerTimeIndicatorUpdate()
