@@ -242,12 +242,11 @@ export default class TimeGrid extends Component {
       if (inRange(event, start, end, accessors)) {
         let eStart = accessors.start(event),
           eEnd = accessors.end(event)
-        const daysHours = 24
 
         if (
           accessors.allDay(event) ||
           (dates.isJustDate(eStart) && dates.isJustDate(eEnd)) ||
-          (!showMultiDayTimes && dates.diff(eStart, eEnd, 'hours') >= daysHours)
+          (!showMultiDayTimes && !dates.eq(eStart, eEnd, 'day'))
         ) {
           allDayEvents.push(event)
         } else {
