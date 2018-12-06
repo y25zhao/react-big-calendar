@@ -105,9 +105,33 @@ class MonthView extends React.Component {
             })
           })
         }
+
+        this.updateStateOnResize('overlay', this.previousShowMoreCell)
+        this.updateStateOnResize('detail', this.previousDetailCell)
       }),
       false
     )
+  }
+
+  getNewElement = (stateKey, element) => {
+    const { id } = element.dataset
+
+    if (stateKey === 'detail' && this.state.overlay) {
+      return document.querySelector(`.rbc-popup [data-id="${id}"]`)
+    } else {
+      return document.querySelector(`[data-id="${id}"]`)
+    }
+  }
+
+  updateStateOnResize(stateKey, element) {
+    if (this.state[stateKey]) {
+      const newElement = this.getNewElement(stateKey, element)
+      const position = getPosition(newElement, findDOMNode(this))
+
+      this.setState(prevState => ({
+        [stateKey]: { ...prevState[stateKey], position },
+      }))
+    }
   }
 
   componentDidUpdate() {
@@ -353,6 +377,7 @@ class MonthView extends React.Component {
     if (popup) {
       let position = getPosition(cell, findDOMNode(this))
       let end = dates.add(date, 1, 'day')
+      this.previousShowMoreCell = cell
 
       this.setState(() => ({
         overlay: { date, end, events, position },
@@ -367,6 +392,7 @@ class MonthView extends React.Component {
   handleDetailEvent = (event, cell) => {
     const { components, onClick } = this.props
     if (components.detailView) {
+      this.previousDetailCell = cell
       this.clearSelection()
       this.setState(() => ({
         detail: {

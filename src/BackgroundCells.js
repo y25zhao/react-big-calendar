@@ -73,6 +73,7 @@ class BackgroundCells extends React.Component {
           return (
             <Wrapper key={index} value={date} range={range}>
               <div
+                data-id={`${date.toString()}`}
                 style={style}
                 className={cn('rbc-day-bg', className, {
                   'rbc-selected-cell': selected,

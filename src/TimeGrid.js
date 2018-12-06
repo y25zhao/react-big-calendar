@@ -4,6 +4,7 @@ import raf from 'dom-helpers/util/requestAnimationFrame'
 import getPosition from 'dom-helpers/query/position'
 import React, { Component } from 'react'
 import { findDOMNode } from 'react-dom'
+import debounce from 'lodash/debounce'
 
 import { popupOffsetShape } from './utils/propTypes'
 import dates from './utils/dates'
@@ -86,6 +87,7 @@ export default class TimeGrid extends Component {
     }
 
     this.renderDetailView = this.renderDetailView.bind(this)
+    this.handleResizeDebounced = debounce(this.handleResize, 100)
   }
 
   componentWillMount() {
@@ -105,17 +107,29 @@ export default class TimeGrid extends Component {
     this.positionTimeIndicator()
     this.triggerTimeIndicatorUpdate()
 
-    window.addEventListener('resize', this.handleResize)
+    window.addEventListener('resize', this.handleResizeDebounced)
   }
 
   handleResize = () => {
     raf.cancel(this.rafHandle)
     this.rafHandle = raf(this.checkOverflow)
+
+    if (this.state.detail) {
+      this.setState(prevState => ({
+        detail: {
+          ...prevState.detail,
+          position: getPosition(
+            this.previousCell,
+            findDOMNode(this.previousContainer)
+          ),
+        },
+      }))
+    }
   }
 
   componentWillUnmount() {
     window.clearTimeout(this._timeIndicatorTimeout)
-    window.removeEventListener('resize', this.handleResize)
+    window.removeEventListener('resize', this.handleResizeDebounced)
 
     raf.cancel(this.rafHandle)
   }
@@ -425,6 +439,8 @@ export default class TimeGrid extends Component {
   handleDetailEvent = container => (event, cell) => {
     const { components, onClick } = this.props
     if (components.detailView) {
+      this.previousContainer = container
+      this.previousCell = cell
       this.clearSelection()
       this.setState(() => ({
         detail: {
