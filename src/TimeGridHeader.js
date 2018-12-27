@@ -5,6 +5,7 @@ import scrollbarSize from 'dom-helpers/util/scrollbarSize' // eslint-disable-lin
 import getPosition from 'dom-helpers/query/position'
 import React from 'react'
 import Overlay from 'react-overlays/lib/Overlay'
+import debounce from 'lodash/debounce'
 
 import { popupOffsetShape } from './utils/propTypes'
 import dates from './utils/dates'
@@ -51,6 +52,31 @@ class TimeGridHeader extends React.Component {
 
   state = {
     overlay: null,
+  }
+
+  constructor(props) {
+    super(props)
+
+    this.handleResizeBounced = debounce(this.handleResize, 100)
+  }
+
+  componentDidMount() {
+    window.addEventListener('resize', this.handleResizeBounced)
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('resize', this.handleResizeBounced)
+  }
+
+  handleResize = () => {
+    if (this.state.overlay) {
+      this.setState(prevState => ({
+        overlay: {
+          ...prevState.overlay,
+          position: getPosition(this.previousCell, findDOMNode(this)),
+        },
+      }))
+    }
   }
 
   handleHeaderClick = (date, view, e) => {
@@ -284,6 +310,7 @@ class TimeGridHeader extends React.Component {
     const { onShowMore, clearSelection } = this.props
     //cancel any pending selections so only the event click goes through.
     clearSelection()
+    this.previousCell = cell
     let position = getPosition(cell, findDOMNode(this))
 
     this.setState({
