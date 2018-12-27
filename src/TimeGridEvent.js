@@ -13,6 +13,7 @@ class TimeGridEvent extends React.Component {
       selected,
       label,
       onClick,
+      onDoubleClick,
       localizer,
       continuesEarlier,
       continuesLater,
@@ -52,6 +53,7 @@ class TimeGridEvent extends React.Component {
           }}
           ref="root"
           onClick={onClick}
+          onDoubleClick={e => onDoubleClick && onDoubleClick(event, e)}
           className={cn(
             'rbc-event',
             className,
@@ -75,39 +77,6 @@ class TimeGridEvent extends React.Component {
         </div>
       </EventWrapper>
     )
-  }
-  componentDidMount() {
-    if (this.refs.root) {
-      const { isExpandable, parentSelector, smallEventBoundary } = this.props
-      if (this.props.parentSelector && this.props.isExpandable) {
-        const { top, left } = this.refs.root.getBoundingClientRect()
-        const parent = document.querySelector(parentSelector)
-        let parentHeight = parent.scrollHeight
-        let parentWidth = parent.scrollWidth
-        let isOpensOverVert = top + isExpandable.y > parentHeight
-        let isOpensOverHor = left + isExpandable.x > parentWidth
-
-        if (isOpensOverVert) {
-          this.refs.root.classList.add('pos-bottom')
-        } else {
-          this.refs.root.classList.remove('pos-bottom')
-        }
-
-        if (isOpensOverHor) {
-          this.refs.root.classList.add('pos-right')
-        } else {
-          this.refs.root.classList.remove('pos-right')
-        }
-      }
-
-      if (smallEventBoundary) {
-        if (this.refs.root.clientWidth < smallEventBoundary) {
-          this.refs.root.classList.add('size-small')
-        } else {
-          this.refs.root.classList.remove('size-small')
-        }
-      }
-    }
   }
 }
 
