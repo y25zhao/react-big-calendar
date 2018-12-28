@@ -11,6 +11,7 @@ class TimeGridEvent extends React.Component {
       accessors,
       isRtl,
       selected,
+      onSelect,
       label,
       onClick,
       onDoubleClick,
@@ -52,7 +53,10 @@ class TimeGridEvent extends React.Component {
             width: `${width}%`,
           }}
           ref="root"
-          onClick={onClick}
+          onClick={e => {
+            onSelect && onSelect(event, e)
+            onClick && onClick(event, e.target)
+          }}
           className={cn(
             'rbc-event',
             className,
@@ -63,7 +67,12 @@ class TimeGridEvent extends React.Component {
           {Event ? (
             <Event
               onDoubleClick={
-                onDoubleClick ? e => onDoubleClick(event, e) : null
+                onDoubleClick
+                  ? e => {
+                      e.preventDefault()
+                      return onDoubleClick(event, e)
+                    }
+                  : null
               }
               event={event}
               label={label}

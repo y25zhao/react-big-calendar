@@ -25,7 +25,7 @@ storiesOf('BB Work Custom', module).add('demo', () => (
   <Calendar
     popup
     events={events}
-    onSelectEvent={action('event selected')}
+    selectable={false}
     overlayOffset={{
       x: 0,
       y: 0,
@@ -44,6 +44,7 @@ storiesOf('BB Work Custom', module).add('demo', () => (
     smallEventBoundary={120}
     scrollToTime={moment('08', 'hh').toDate()}
     maxAllDayEvents={4}
+    onDoubleClickEvent={action('Double clicked')}
     components={{
       detailView: event => {
         return (

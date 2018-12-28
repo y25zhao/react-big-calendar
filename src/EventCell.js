@@ -86,7 +86,12 @@ class EventCell extends React.Component {
           {Event ? (
             <Event
               onDoubleClick={
-                onDoubleClick ? e => onDoubleClick(event, e) : null
+                onDoubleClick
+                  ? e => {
+                      e.preventDefault()
+                      return onDoubleClick(event, e)
+                    }
+                  : null
               }
               eventData={event}
               title={title}
