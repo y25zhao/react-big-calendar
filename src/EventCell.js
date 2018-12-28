@@ -82,17 +82,10 @@ class EventCell extends React.Component {
             onSelect && onSelect(event, e)
             onClick && onClick(event, e.target)
           }}
+          onDoubleClick={e => onDoubleClick && onDoubleClick(event, e)}
         >
           {Event ? (
             <Event
-              onDoubleClick={
-                onDoubleClick
-                  ? e => {
-                      e.preventDefault()
-                      return onDoubleClick(event, e)
-                    }
-                  : null
-              }
               eventData={event}
               title={title}
               isAllDay={allDay}
