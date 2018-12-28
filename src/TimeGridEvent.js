@@ -53,7 +53,6 @@ class TimeGridEvent extends React.Component {
           }}
           ref="root"
           onClick={onClick}
-          onDoubleClick={e => onDoubleClick && onDoubleClick(event, e)}
           className={cn(
             'rbc-event',
             className,
@@ -63,6 +62,9 @@ class TimeGridEvent extends React.Component {
         >
           {Event ? (
             <Event
+              onDoubleClick={
+                onDoubleClick ? e => onDoubleClick(event, e) : null
+              }
               event={event}
               label={label}
               title={title}

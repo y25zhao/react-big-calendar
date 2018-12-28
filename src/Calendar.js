@@ -542,12 +542,6 @@ class Calendar extends React.Component {
     max: PropTypes.instanceOf(Date),
 
     /**
-     * Determines width in px below that class for small-sized events should be applied.
-     * In order to give possibility to restructure event via css
-     */
-    smallEventBoundary: PropTypes.oneOfType([PropTypes.bool, PropTypes.number]),
-
-    /**
      * Defines maximum number of Allday events that shown up on Week and Day views,
      * before "Show more" link and popup will appear
      */
