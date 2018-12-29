@@ -436,7 +436,7 @@ export default class TimeGrid extends Component {
 
   handleDetailEvent = container => (event, cell) => {
     const { components, onClick } = this.props
-    if (components.detailView) {
+    if (components.detailView && cell) {
       this.previousContainer = container
       this.previousCell = cell
       this.clearSelection()

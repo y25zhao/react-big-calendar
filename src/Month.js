@@ -391,7 +391,7 @@ class MonthView extends React.Component {
 
   handleDetailEvent = (event, cell) => {
     const { components, onClick } = this.props
-    if (components.detailView) {
+    if (components.detailView && cell) {
       this.previousDetailCell = cell
       this.clearSelection()
       this.setState(() => ({
