@@ -40,7 +40,6 @@ storiesOf('BB Work Custom', module).add('demo', () => (
       x: 240,
       y: 100,
     }}
-    onResize={console.log}
     smallEventBoundary={120}
     scrollToTime={moment('08', 'hh').toDate()}
     maxAllDayEvents={4}
@@ -61,10 +60,16 @@ storiesOf('BB Work Custom', module).add('demo', () => (
       timeGutterHeader: ({ label }) => {
         return <b>{label}GMT</b>
       },
-      day: {
-        event: () => <span>Foo!</span>,
-        allDayEvent: () => <b>Boo!</b>,
-      },
+      // month: {
+      //   event: ({onClick, eventData, title}) => <div className='rbc-inline-event' onClick={onClick}>{title}</div>,
+      // },
+      // week: {
+      //   event: ({onClick, eventData, title}) => <div className='rbc-inline-event' onClick={onClick}>{title}</div>,
+      // },
+      // day: {
+      //   event: ({onClick, eventData, title}) => <div className='rbc-inline-event' onClick={onClick}>{title}</div>,
+      //   allDayEvent: () => <b>Boo!</b>,
+      // },
     }}
   />
 ))

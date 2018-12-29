@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types'
 import React from 'react'
 import cn from 'classnames'
+import debounce from 'lodash/debounce'
 import dates from './utils/dates'
 
 let propTypes = {
@@ -24,6 +25,27 @@ let propTypes = {
 }
 
 class EventCell extends React.Component {
+  handleClick = e => {
+    e.persist()
+    const target = e.target
+    if (!this._delayedClick) {
+      this._delayedClick = debounce(() => {
+        this.clickedOnce = undefined
+        this.props.onClick(this.props.event, target)
+      }, 250)
+    }
+    if (this.clickedOnce) {
+      this._delayedClick.cancel()
+      this.clickedOnce = false
+      if (this.props.onDoubleClick) {
+        this.props.onDoubleClick(this.props.event, target)
+      }
+    } else {
+      this._delayedClick(e)
+      this.clickedOnce = true
+    }
+  }
+
   render() {
     let {
       style,
@@ -31,8 +53,6 @@ class EventCell extends React.Component {
       event,
       selected,
       isAllDay,
-      onSelect,
-      onDoubleClick,
       localizer,
       onClick,
       continuesPrior,
@@ -78,11 +98,11 @@ class EventCell extends React.Component {
             userProps.className,
             additionalClassNames
           )}
-          onClick={e => {
-            onSelect && onSelect(event, e)
-            onClick && onClick(event, e.target)
-          }}
-          onDoubleClick={e => onDoubleClick && onDoubleClick(event, e)}
+          // onClick={e => {
+          //   onSelect && onSelect(event, e)
+          //   // onClick && onClick(event, e.target)
+          // }}
+          onClick={this.handleClick}
         >
           {Event ? (
             <Event
@@ -91,6 +111,7 @@ class EventCell extends React.Component {
               isAllDay={allDay}
               localizer={localizer}
               tooltip={tooltip}
+              onClick={onClick}
               selected={selected}
               style={style}
             />

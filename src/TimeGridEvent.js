@@ -1,8 +1,30 @@
 import cn from 'classnames'
 import React from 'react'
+import debounce from 'lodash/debounce'
 
 /* eslint-disable react/prop-types */
 class TimeGridEvent extends React.Component {
+  handleClick = e => {
+    e.persist()
+    const target = e.target
+    if (!this._delayedClick) {
+      this._delayedClick = debounce(() => {
+        this.clickedOnce = undefined
+        this.props.onClick(e)
+      }, 250)
+    }
+    if (this.clickedOnce) {
+      this._delayedClick.cancel()
+      this.clickedOnce = false
+      if (this.props.onDoubleClick) {
+        this.props.onDoubleClick(this.props.event, target)
+      }
+    } else {
+      this._delayedClick(e)
+      this.clickedOnce = true
+    }
+  }
+
   render() {
     const {
       style,
@@ -13,7 +35,6 @@ class TimeGridEvent extends React.Component {
       selected,
       label,
       onClick,
-      onDoubleClick,
       localizer,
       continuesEarlier,
       continuesLater,
@@ -52,8 +73,7 @@ class TimeGridEvent extends React.Component {
             width: `${width}%`,
           }}
           ref="root"
-          onClick={onClick}
-          onDoubleClick={e => onDoubleClick && onDoubleClick(event, e)}
+          onClick={this.handleClick}
           className={cn(
             'rbc-event',
             className,
@@ -67,6 +87,7 @@ class TimeGridEvent extends React.Component {
               label={label}
               title={title}
               tooltip={tooltip}
+              onClick={onClick}
               style={style}
               selected={selected}
               localizer={localizer}
