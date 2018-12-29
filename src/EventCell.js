@@ -32,7 +32,7 @@ class EventCell extends React.Component {
       this._delayedClick = debounce(() => {
         this.clickedOnce = undefined
         this.props.onClick(this.props.event, target)
-      }, 250)
+      }, 450)
     }
     if (this.clickedOnce) {
       this._delayedClick.cancel()

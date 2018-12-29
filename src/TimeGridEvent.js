@@ -11,7 +11,7 @@ class TimeGridEvent extends React.Component {
       this._delayedClick = debounce(() => {
         this.clickedOnce = undefined
         this.props.onClick(e)
-      }, 250)
+      }, 450)
     }
     if (this.clickedOnce) {
       this._delayedClick.cancel()
