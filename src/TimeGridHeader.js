@@ -241,10 +241,10 @@ class TimeGridHeader extends React.Component {
             events={overlay.events}
             getNow={getNow}
             onClick={this.props.handleDetailEvent}
+            onDoubleClick={this.props.onDoubleClickEvent}
             slotStart={overlay.date}
             slotEnd={overlay.end}
             onSelect={this.handleSelectEvent}
-            onDoubleClick={this.handleDoubleClickEvent}
           />
         </Position>
       </Overlay>
