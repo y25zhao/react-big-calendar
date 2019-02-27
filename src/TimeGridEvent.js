@@ -25,6 +25,23 @@ class TimeGridEvent extends React.Component {
     }
   }
 
+  checkSize = () => {
+    if (
+      this.props.smallEventBoundary > 0 &&
+      this.refs.root.clientWidth <= this.props.smallEventBoundary
+    ) {
+      this.refs.root.classList.add('event-small')
+    }
+  }
+
+  componentDidMount() {
+    this.checkSize()
+  }
+
+  componentDidUpdate() {
+    this.checkSize()
+  }
+
   render() {
     const {
       style,

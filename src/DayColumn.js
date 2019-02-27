@@ -21,6 +21,7 @@ class DayColumn extends React.Component {
     min: PropTypes.instanceOf(Date).isRequired,
     max: PropTypes.instanceOf(Date).isRequired,
     getNow: PropTypes.func.isRequired,
+    smallEventBoundary: PropTypes.number,
 
     rtl: PropTypes.bool,
 
@@ -60,6 +61,7 @@ class DayColumn extends React.Component {
   static defaultProps = {
     dragThroughEvents: true,
     timeslots: 2,
+    smallEventBoundary: 0,
   }
 
   state = { selecting: false }
@@ -159,6 +161,7 @@ class DayColumn extends React.Component {
       getters,
       onClick,
       components,
+      smallEventBoundary,
       parentSelector,
       isExpandable,
       step,
@@ -203,6 +206,7 @@ class DayColumn extends React.Component {
           isRtl={isRtl}
           getters={getters}
           components={components}
+          smallEventBoundary={smallEventBoundary}
           parentSelector={parentSelector}
           continuesEarlier={continuesEarlier}
           continuesLater={continuesLater}

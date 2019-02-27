@@ -542,6 +542,11 @@ class Calendar extends React.Component {
     max: PropTypes.instanceOf(Date),
 
     /**
+     * Maxinun event width in DayColumn to be considered as small
+     */
+    smallEventBoundary: PropTypes.number,
+
+    /**
      * Defines maximum number of Allday events that shown up on Week and Day views,
      * before "Show more" link and popup will appear
      */
@@ -768,6 +773,8 @@ class Calendar extends React.Component {
 
     resourceIdAccessor: 'id',
     resourceTitleAccessor: 'title',
+
+    smallEventBoundary: 0,
 
     longPressThreshold: 250,
     getNow: () => new Date(),
